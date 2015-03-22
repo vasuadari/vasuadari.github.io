@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='UTF-8'/>
+	<meta name='keywords' content='Vasu Adari, Developer, TCS'/>
+	<meta name='description' content='About Me'/>
+	<meta name='author' content='Vasu Adari'/>
+	<title>Vasu Adari</title>
+	<link rel='stylesheet' type='text/css' href='./styles/vendor/bootstrap.min.css'/>
+</head>
+<body>
+	<script src='./scripts/vendor/jquery.min.js'></script>
+	<script src='./scripts/vendor/bootstrap.min.js'></script>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '118569214916044',
+				xfbml      : true,
+				version    : 'v2.2'
+			});
+		};
+
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+</body>
+</html>
