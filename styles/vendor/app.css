@@ -1,0 +1,63 @@
+/* Variables */
+/* Fonts */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,700);
+header {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 2em;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+
+/* Layout */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Styling */
+.header-title {
+  color: white;
+  text-align: center;
+  background-position: 50% 50%;
+  background-size: cover;
+  padding: 10% 0;
+}
+.header-title h1 {
+  font-size: 1.5rem;
+}
+.header-title h2 {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.header-title-hgroup p {
+  font-size: 14px;
+}
+
+.header-title-avatar {
+  background-size: cover;
+  border-radius: 100%;
+  margin: 0 auto 2rem auto;
+  width: 6rem;
+  height: 6rem;
+}
+
+.header-title-hgroup {
+  display: inline-block;
+  padding: 0.3em 1em 0.5em 1em;
+}
+
+.header-title-hgroup small {
+  color: white;
+}
+
+/* Theme */
+/* original linear gradient rgba(211, 131, 18, 0.85), rgba(168, 50, 121, 0.85) */
+.header-title-style-1 {
+  background-image: linear-gradient(to bottom right, rgba(200, 200, 100, 0.1), rgba(200, 70, 125, 0.75)), url("https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/10453456_10201616222805854_3313853425713011825_n.jpg?oh=21905950c3bd6bdf80d9a6845c72b583&oe=559D54AB&__gda__=1437305631_d00b2f557030e0305f0f3767a81f7578");
+}
+.header-title-style-1 .header-title-avatar {
+  background-image: url("https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xaf1/v/t1.0-9/10453456_10201616222805854_3313853425713011825_n.jpg?oh=21905950c3bd6bdf80d9a6845c72b583&oe=559D54AB&__gda__=1437305631_d00b2f557030e0305f0f3767a81f7578");
+}
