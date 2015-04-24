@@ -70,3 +70,7 @@ p {
 .content {
   box-shadow: 0 3px 3px 1px rgba(0, 0, 0, .15);
 }
+
+.content-container {
+  padding-bottom: 75px;
+}
