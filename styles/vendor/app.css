@@ -16,6 +16,11 @@ header {
   box-sizing: border-box;
 }
 
+p {
+  text-transform: none;
+  font-size: 14px;
+}
+
 /* Styling */
 .header-title {
   color: white;
