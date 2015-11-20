@@ -1,8 +1,8 @@
-@charset "UTF-8";
+@charset 'UTF-8';
 @font-face {
   font-family: 'icomoon';
-  src: url("./../../fonts/icomoon.eot?3qkin2");
-  src: url('./../../fonts/icomoon.eot?#iefix3qkin2') format("embedded-opentype"), url('./../../fonts/icomoon.woff?3qkin2') format("woff"), url('./../../fonts/icomoon.ttf?3qkin2') format('truetype');
+  src: url('./../fonts/icomoon.eot?3qkin2');
+  src: url('./../fonts/icomoon.eot?#iefix3qkin2') format('embedded-opentype'), url('./../fonts/icomoon.woff?3qkin2') format('woff'), url('./../fonts/icomoon.ttf?3qkin2') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,7 +27,7 @@
   text-decoration: none;
 }
 .social-networks a:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -65,40 +65,40 @@
   color: #33b5e5;
 }
 .social-networks .icon-linkedin:after {
-  content: "";
+  content: '';
 }
 .social-networks .icon-linkedin:hover:before, .social-networks .icon-linkedin:focus:before {
   /*background: #33b5e5;*/
   border-radius: 100px;
 }
 .social-networks .icon-facebook:after {
-  content: "";
+  content: '';
 }
 .social-networks .icon-facebook:hover:before, .social-networks .icon-facebook:focus:before {
   /*background: #33b5e5;*/
   border-radius: 100px;
 }
 .social-networks .icon-twitter:after {
-  content: "";
+  content: '';
 }
 .social-networks .icon-twitter:hover:before, .social-networks .icon-twitter:focus:before {
   /*background: #33b5e5;*/
   border-radius: 100px;
 }
 .social-networks .icon-github:after {
-  content: "";
+  content: '';
 }
 .social-networks .icon-github:hover:before, .social-networks .icon-github:focus:before {
   /*background: #33b5e5;*/
   border-radius: 100px;
 }
 .social-networks .icon-instagram:after {
-  content: "";
+  content: '';
 }
 .social-networks .icon-instagram:hover:before, .social-networks .icon-instagram:focus:before {
   /*background: #33b5e5;*/
   border-radius: 100px;
 }
 .social-networks .icon-vimeo:after {
-  content: "";
+  content: '';
 }
