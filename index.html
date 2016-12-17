@@ -11,6 +11,13 @@
 	<link rel='stylesheet' type='text/css' href='./styles/liststyle.css'/>
 	<link rel='stylesheet' type='text/css' href='./styles/font-awesome.css'/>
 	<link rel='stylesheet' type='text/css' href='./styles/socialiconstyle.css'/>
+	<script type="text/javascript">
+		function _calculateAge(birthday) {
+	    var ageDifMs = Date.now() - birthday.getTime();
+	    var ageDate = new Date(ageDifMs);
+	    return Math.abs(ageDate.getUTCFullYear() - 1970);
+		}
+	</script>
 </head>
 <body>
 	<div class='container content-container'>
@@ -18,7 +25,7 @@
 	    <header class='header-title header-title-style'>
 		    <div class='header-title-hgroup'>
 			    <div class='header-title-avatar'></div>
-			    <h1>Vasu Adari, <small>Developer</small></h1>
+			    <h1>Vasu Adari, <small>DevOps</small></h1>
 			    <p> Living in Bangalore, India. Loves Music, Movies, Food and Travelling. </p>
 		    </div>
 			</header>
@@ -40,7 +47,9 @@
 								Experience
 							</h3>
 							<p>
-								Ruby on Rails Developer.
+								Ruby on Rails Developer. (<script>
+								  document.write(_calculateAge(new Date('11/22/2012')));
+								</script> Yrs)
 							</p>
 							<ul>
 								<li>
