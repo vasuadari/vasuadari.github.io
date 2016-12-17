@@ -52,6 +52,7 @@ p {
 .header-title-hgroup {
   display: inline-block;
   padding: 0.3em 1em 0.5em 1em;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .header-title-hgroup small {
