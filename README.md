@@ -1,3 +1,3 @@
-# <a href="https://vasuadari.github.io/vasuadari/" target="_blank">Portfolio</a>
+# <a href="http://vasuadari.com" target="_blank">Portfolio</a>
 
 
