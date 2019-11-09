@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/vasuadari
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://vasuadari.com
+  * I am vasuadari (https://keybase.io/vasuadari) on keybase.
+  * I have a public key ASBBuixZrvp_U2NPv23Ljd8Pr2FTMxHcB_WdXuqc3gye3wo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012041ba2c59aefa7f53634fbf6dcb8ddf0faf61533311dc07f59d5eea9cde0c9edf0a",
+      "host": "keybase.io",
+      "kid": "012041ba2c59aefa7f53634fbf6dcb8ddf0faf61533311dc07f59d5eea9cde0c9edf0a",
+      "uid": "7f2569483633df2123beca1ce8694619",
+      "username": "vasuadari"
+    },
+    "merkle_root": {
+      "ctime": 1573298943,
+      "hash": "bbc7284a819d9fde3384ded2503e567ef9ebf96b09fd15f8e7fd6923f0fe89044ff2d5f207b2c164de69fa4c602d09764053d930d2ba81996a4cf6a0311c129f",
+      "hash_meta": "349baf34037425d4981b363eb29e1f266e3b51a3e689bc0c301c22735254c089",
+      "seqno": 9004827
+    },
+    "service": {
+      "entropy": "hLyhH73Nb9bYxkrRDR62AGXE",
+      "hostname": "vasuadari.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.7.2"
+  },
+  "ctime": 1573298996,
+  "expire_in": 504576000,
+  "prev": "9aaeb48ce3c92a2a44cca1afa5be87daff5bcf106b5ab9712e5d5e5e899f4f7b",
+  "seqno": 12,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgQbosWa76f1NjT79ty43fD69hUzMR3Af1nV7qnN4Mnt8Kp3BheWxvYWTESpcCDMQgmq60jOPJKipEzKGvpb6H2v9bzxBrWrlxLl1eXomfT3vEICVw8abXNDqiRDNPqdVlf2afMWg2tyY5AN4U37Y36ab+AgHCo3NpZ8RAzOwkGVj5R7FE/zuj7eTWk0NyeuWVahcPx5uYUbC7xtSBphi8OxoqZsTrRYhv3c9sEvuoES2fCFezyeuHrpXSB6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIBqycsJUcJMQQD+CJVRrWtmVrNzNXRwKSqtDISyDH5Nuo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/vasuadari
+
+==================================================================
