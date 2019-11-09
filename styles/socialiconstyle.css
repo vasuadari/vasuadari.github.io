@@ -33,9 +33,9 @@
 .social i#stack:hover {
   color: #ED780E;
 }
-.social i#plus:hover {
-  color: #D43402;
-}
 .social i#mail:hover {
   color: #F7B401;
+}
+.social i#keybase:hover {
+  color: #52A0F8;
 }
