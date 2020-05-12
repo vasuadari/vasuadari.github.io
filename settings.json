@@ -1,0 +1,9 @@
+{
+  "index": {
+    "header": "Vasu Adari",
+    "tag_line": "Engineer lives in Bangalore. Likes movies and brewed beer."
+  },
+  "blog": {"header": "Blog"},
+  "resume": {"header": "Resume"},
+  "contact": {"header": "Contact"}
+}
