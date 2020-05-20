@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='UTF-8'/>
+    <meta name='keywords' content='Vasu Adari, Developer, TCS'/>
+    <meta name='description' content='About Me'/>
+    <meta name='author' content='Vasu Adari'/>
+    <title>Vasu Adari</title>
+  </head>
+  <body class="text-dark">
+    <header>
+      <div class="container">
+        <%= if assigns[:header] do %>
+          <h1><%= assigns[:header] %></h1>
+        <% end %>
+        <%= if assigns[:tag_line] do %>
+          <p><%= assigns[:tag_line] %></p>
+        <% end %>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <%= assigns[:content] %>
+      </div>
+    </div>
+  </body>
+</html>
