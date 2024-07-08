@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vasu Adari - Resume</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+    <style>
+        body.dark-theme {
+            background-color: #151515;
+            color: #fff;
+        }
+        body.dark-theme a {
+            color: #1a95e0;
+        }
+        body.dark-theme .terminal-card > header {
+            background-color: #1a95e0;
+            color: #fff;
+        }
+        body.dark-theme .terminal-card {
+            border-color: #727578;
+        }
+        body.dark-theme .terminal-card > div {
+            background-color: #272727;
+        }
+        .theme-toggle-btn {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -13,6 +35,7 @@
             <p>Bangalore, India</p>
             <p>Email: <a href="mailto:vasuadari@icloud.com">vasuadari@icloud.com</a> | Phone: <a href="tel:+919940364805">+919940364805</a></p>
             <p><a href="https://linkedin.com/in/vasuakeel">LinkedIn</a> | <a href="https://github.com/vasuadari">GitHub</a></p>
+            <button class="btn btn-primary theme-toggle-btn" onclick="toggleTheme()">Toggle Theme</button>
         </header>
 
         <section>
@@ -117,5 +140,10 @@
             </div>
         </section>
     </div>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+    </script>
 </body>
 </html>
