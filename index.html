@@ -1,241 +1,121 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset='UTF-8'/>
-    <meta name='keywords' content='Vasu Adari, Developer, TCS'/>
-    <meta name='description' content='About Me'/>
-    <meta name='author' content='Vasu Adari'/>
-    <title>Vasu Adari</title>
-    <link rel='icon' type='image/svg+xml' href='./images/icon.svg'>
-    <link rel='stylesheet' type='text/css' href='./styles/bootstrap.min.css'/>
-    <link rel='stylesheet' type='text/css' href='./styles/app.css'/>
-    <link rel='stylesheet' type='text/css' href='./styles/liststyle.css'/>
-    <link rel='stylesheet' type='text/css' href='./styles/font-awesome.css'/>
-    <link rel='stylesheet' type='text/css' href='./styles/socialiconstyle.css'/>
-    <script src="https://kit.fontawesome.com/fb964219ff.js" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      function _calculateAge(birthday, end_date = Date.now()) {
-        var ageDifMs = end_date - birthday.getTime();
-        var ageDate = new Date(ageDifMs);
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
-      }
-    </script>
-  </head>
-  <body>
-    <div class='container content-container'>
-      <div class='row'>
-        <header class='header-title header-title-style'>
-          <div class='header-title-hgroup'>
-            <div class='header-title-avatar'></div>
-            <h1>Vasu Adari, <small>DevOps</small></h1>
-            <p> Living in Bangalore, India. </p>
-            <p> Loves Music, Movies, Food and Travelling. </p>
-          </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vasu Adari - Resume</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Vasu Adari</h1>
+            <p>Bangalore, India</p>
+            <p>Email: <a href="mailto:vasuadari@icloud.com">vasuadari@icloud.com</a> | Phone: <a href="tel:+919940364805">+919940364805</a></p>
+            <p><a href="https://linkedin.com/in/vasuakeel">LinkedIn</a> | <a href="https://github.com/vasuadari">GitHub</a></p>
         </header>
-      </div>
-      <div class='row content'>
-        <div class='col-md-12'>
-          <nav class='.nav'>
-            <ul class='list-unstyled list'>
-              <li>
-                <h3 class='page-header'>
-                  Experience (<script>
-                    document.write(_calculateAge(new Date('11/22/2012')));
-                  </script> Yrs)
-                </h3>
-              </li>
-              <li>
-                <h4>Back-end</h4>
-                <ul>
-                  <li>
-                    <h4>Frameworks</h4>
-                    <ul>
-                      <li>
-                        <p>
-                        Phoenix (<script>
-                          document.write(_calculateAge(new Date('12/01/2017')));
-                        </script> Yrs)
-                        </p>
-                      </li>
-                      <li>
-                        <p>
-                        Ruby on Rails (<script>
-                          document.write(_calculateAge(new Date('11/22/2012'), new Date("11/30/2017")));
-                        </script> Yrs)
-                        </p>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Databases</h4>
-                    <ul>
-                      <li>
-                        <h4>SQL</h4>
-                        <ul>
-                          <li>MySQL</li>
-                          <li>PostgreSQL</li>
-                        </ul>
-                      </li>
-                      <li>
-                        <h4>NoSQL</h4>
-                        <ul>
-                          <li>MongoDB</li>
-                          <li>Redis</li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Languages</h4>
-                    <ul>
-                      <li>C++</li>
-                      <li>
-                        <p>
-                        Elixir (<script>
-                          document.write(_calculateAge(new Date('12/01/2017')));
-                        </script> Yrs)
-                        </p>
-                      </li>
-                      <li>Java</li>
-                      <li>
-                        <p>
-                        Ruby (<script>
-                          document.write(_calculateAge(new Date('11/22/2012'), new Date("11/30/2017")));
-                        </script> Yrs)
-                        </p>
-                      </li>
-                      <li>Shell script</li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Server</h4>
-                    <ul>
-                      <li>Nginx</li>
-                      <li>Phusion Passenger</li>
-                      <li>Unicorn</li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Text Editors</h4>
-                    <ul>
-                      <li>Atom</li>
-                      <li>Sublime Text</li>
-                      <li>Vim</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>DevOps</h4>
-                <ul>
-                  <li>
-                    <h4>Cloud</h4>
-                    <ul>
-                      <li>AWS</li>
-                      <li>Digital Ocean</li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Deployment Tools/Frameworks</h4>
-                    <ul>
-                      <li>Docker</li>
-                      <li>Kubernetes</li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Orchestration Tools</h4>
-                    <ul>
-                      <li>Ansible</li>
-                      <li>Chef</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>Front-end</h4>
-                <ul>
-                  <li>
-                    <h4>Languages</h4>
-                    <ul>
-                      <li>CSS</li>
-                      <li>CoffeeScript</li>
-                      <li>HTML</li>
-                      <li>JavaScript</li>
-                      <li>jQuery</li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Tools</h4>
-                    <ul>
-                      <li>Sublime Text</li>
-                      <li>Chrome</li>
-                      <li>Firefox</li>
-                      <li>IE > 8.0</li>
-                    </ul>
-                  </li>
-                </ul>
-                <ul>
-                  <li>
-                    <h4>Frameworks</h4>
-                    <ul>
-                      <li>AngularJS</li>
-                      <li>Boostrap</li>
-                      <li>Phoenix Live View</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h4>OS</h4>
-                <ul>
-                  <li>Ubuntu</li>
-                  <li>Oracle Linux</li>
-                  <li>OS X</li>
-                  <li>Windows Xp, 7 &amp; 8</li>
-                </ul>
-              </li>
-              <li>
-                <h3 class='page-header'>
-                  Education
-                </h3>
-                <p>
-                Bachelor of Information Technology. (2008-2012)
-                </p>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <nav class='navbar navbar-default navbar-fixed-bottom'>
-        <div class='container'>
-          <div class='row'>
-            <div class='col-md-6 col-md-offset-3'>
-              <div class='social'>
-                <a href='https://twitter.com/vasuadari' target='_blank'><i id='twitter' class='icon-twitter'></i></a>
-                <a href='https://github.com/vasuadari' target='_blank'><i id='github' class='icon-github'></i></a>
-                <a href='https://stackoverflow.com/users/1823242/vasu-adari' target='_blank'><i id='stack' class='icon-stackexchange'></i></a>
-                <a href='https://in.linkedin.com/in/vasuakeel' target='_blank'><i id='linkedin' class='icon-linkedin-sign'></i></a>
-                <a href='https://keybase.io/vasuadari' target='_blank'><i id='keybase' class='fab fa-keybase'></i></a>
-                <a href='mailto:vasuakeel@gmail.com?Subject=Hey%20Vasu'><i id='mail' class='icon-envelope'></i></a>
-              </div>
+
+        <section>
+            <h2>Profile</h2>
+            <p>Innovative Software Engineer with 12 Years of Experience in Building Scalable, High-Performance Applications Across Diverse Industries.</p>
+        </section>
+
+        <section>
+            <h2>Skills</h2>
+            <div class="terminal-card">
+                <header>Engineering</header>
+                <div>Elixir, Ruby, JavaScript, Elasticsearch, MySQL, Postgres, Kafka, Redis</div>
             </div>
-          </div>
-        </div>
-      </nav>
+            <div class="terminal-card">
+                <header>DevOps</header>
+                <div>Docker, Kubernetes, Helm, Terraform, Ansible, GitLab, CI/CD, Git, AWS, GCP, Grafana, Graylog, NewRelic</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+            <div class="terminal-timeline">
+                <div class="terminal-card">
+                    <header>Scripbox</header>
+                    <div>
+                        <strong>Principal Engineer</strong>
+                        <p>March 2022 - Present | Bengaluru, Karnataka, India</p>
+                        <p><a href="https://scripbox.com">https://scripbox.com</a></p>
+                        <ul>
+                            <li>Led the architectural design and implementation of a highly scalable Elixir application, replacing legacy systems during company mergers.</li>
+                            <li>Developed a master data application in Elixir with DAG-based workflow, including advanced search API features.</li>
+                            <li>Implemented OpenAPI Specification 3.0 standards, improving API documentation and maintainability across Elixir and Ruby applications.</li>
+                            <li>Established Architecture Decision Records (ADRs) as standard practice, fostering better decision-making and collaboration.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="terminal-card">
+                    <header>Gojek Tech</header>
+                    <div>
+                        <strong>Lead Software Engineer</strong>
+                        <p>December 2020 - February 2022 | Bengaluru, Karnataka, India</p>
+                        <p><a href="https://www.gojek.io/">https://www.gojek.io/</a></p>
+                        <ul>
+                            <li>Revamped the code structure of the API-based ad serving application on the Gojek iOS/Android platform, aligning it with bounded context principles.</li>
+                            <li>Developed search-based ads for the Gojek food delivery application.</li>
+                            <li>Expanded advertising capabilities to include two additional inventories, also developed an Elixir Kafka consumer to handle millions of telemetry events.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="terminal-card">
+                    <header>Scripbox</header>
+                    <div>
+                        <strong>Lead Software Engineer</strong>
+                        <p>December 2015 - December 2020 | Bengaluru, Karnataka, India</p>
+                        <p><a href="https://scripbox.com/">https://scripbox.com/</a></p>
+                        <ul>
+                            <li>Simplified user registration flow: Implemented streamlined APIs using Ruby on Rails, resulting in increased engagement.</li>
+                            <li>Enhanced portfolio management: Developed API to calculate real-time portfolio values, enabling informed investment decisions.</li>
+                            <li>Improved customer communication: Added push notification service for contact center, ensuring effective communication.</li>
+                            <li>Modernized application architecture: Dockerized all applications and deployed to AWS Elastic Beanstalk, improving scalability and resource utilization.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="terminal-card">
+                    <header>Apple (Via TCS)</header>
+                    <div>
+                        <strong>DevOps Engineer</strong>
+                        <p>November 2013 - December 2015 | Bengaluru, Karnataka, India</p>
+                        <p><a href="https://apple.com/">https://apple.com/</a></p>
+                        <ul>
+                            <li>Migrated the multi-geography application from a single-node to a highly scalable and secured infrastructure, concurrently upgrading to Rails 4.x.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="terminal-card">
+                    <header>Tata Consultancy Services</header>
+                    <div>
+                        <strong>Full Stack Engineer - Innovation Labs</strong>
+                        <p>November 2012 - November 2013</p>
+                        <ul>
+                            <li>Developed and scaled an enterprise social collaboration platform to 300K+ users. Built wikis, messaging, and modernized notifications with AngularJS.</li>
+                            <li>Designed robust RESTful APIs to ensure seamless integration and extensibility.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="terminal-card">
+                <header>Rajalakshmi Institute of Technology</header>
+                <div>
+                    <strong>Bachelor of Technology in Information Technology</strong>
+                    <p>2008 - 2012</p>
+                    <p><a href="https://ritchennai.org/">https://ritchennai.org/</a></p>
+                </div>
+            </div>
+        </section>
     </div>
-  </body>
+</body>
 </html>
