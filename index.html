@@ -12,6 +12,10 @@
             color: var(--font-color);
         }
 
+        h1 {
+            color: var(--font-color);
+        }
+
         /* Dark Theme */
         @media (prefers-color-scheme: dark) {
             body {
@@ -31,6 +35,31 @@
             .terminal-card > div {
                 background-color: #272727;
             }
+            h1 {
+                color: #fff;
+            }
+        }
+
+        /* Manual Dark Theme */
+        body.dark-theme {
+            background-color: #151515;
+            color: #fff;
+        }
+        body.dark-theme a {
+            color: #1a95e0;
+        }
+        body.dark-theme .terminal-card > header {
+            background-color: #1a95e0;
+            color: #fff;
+        }
+        body.dark-theme .terminal-card {
+            border-color: #727578;
+        }
+        body.dark-theme .terminal-card > div {
+            background-color: #272727;
+        }
+        body.dark-theme h1 {
+            color: #fff;
         }
 
         .header-right {
