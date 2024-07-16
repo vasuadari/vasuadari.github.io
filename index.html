@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,15 +11,28 @@
         body {
             background-color: var(--background-color);
             color: var(--font-color);
+            font-family: Arial, sans-serif;
         }
 
         h1, h2, h3, h4, h5, h6 {
             color: var(--font-color);
         }
 
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
         /* Add spacing between sections */
         section {
             margin-bottom: 2rem;
+        }
+
+        .job-role {
+            font-weight: bold;
+            color: var(--font-color);
         }
 
         /* Dark Theme */
@@ -45,6 +57,9 @@
             h1, h2, h3, h4, h5, h6 {
                 color: #fff;
             }
+            .job-role {
+                color: #1a95e0;
+            }
         }
 
         /* Manual Dark Theme */
@@ -65,8 +80,11 @@
         body.dark-theme .terminal-card > div {
             background-color: #272727;
         }
-        body.dark-theme h1, body.dark-theme h2, body-dark-theme h3, body-dark-theme h4, body-dark-theme h5, body-dark-theme h6 {
+        body.dark-theme h1, body-dark-theme h2, body-dark-theme h3, body-dark-theme h4, body-dark-theme h5, body-dark-theme h6 {
             color: #fff;
+        }
+        body.dark-theme .job-role {
+            color: #1a95e0;
         }
 
         .header-right {
@@ -75,6 +93,16 @@
 
         .fa-link {
             margin-left: 0.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header, section {
+                text-align: center;
+            }
+            .terminal-card {
+                text-align: left;
+            }
         }
     </style>
 </head>
@@ -110,7 +138,7 @@
                 <div class="terminal-card">
                     <h3>Scripbox <a href="https://scripbox.com" target="_blank"><i class="fas fa-link"></i></a></h3>
                     <div>
-                        <strong>Principal Engineer</strong>
+                        <strong class="job-role">Principal Engineer</strong>
                         <p>March 2022 - Present | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Led the architectural design and implementation of a highly scalable Elixir application, replacing legacy systems during company mergers.</li>
@@ -124,7 +152,7 @@
                 <div class="terminal-card">
                     <h3>Gojek Tech <a href="https://www.gojek.io/" target="_blank"><i class="fas fa-link"></i></a></h3>
                     <div>
-                        <strong>Lead Software Engineer</strong>
+                        <strong class="job-role">Lead Software Engineer</strong>
                         <p>December 2020 - February 2022 | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Revamped the code structure of the API-based ad serving application on the Gojek iOS/Android platform, aligning it with bounded context principles.</li>
@@ -137,7 +165,7 @@
                 <div class="terminal-card">
                     <h3>Scripbox <a href="https://scripbox.com" target="_blank"><i class="fas fa-link"></i></a></h3>
                     <div>
-                        <strong>Lead Software Engineer</strong>
+                        <strong class="job-role">Lead Software Engineer</strong>
                         <p>December 2015 - December 2020 | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Simplified user registration flow: Implemented streamlined APIs using Ruby on Rails, resulting in increased engagement.</li>
@@ -151,7 +179,7 @@
                 <div class="terminal-card">
                     <h3>Apple (Via TCS) <a href="https://apple.com" target="_blank"><i class="fas fa-link"></i></a></h3>
                     <div>
-                        <strong>DevOps Engineer</strong>
+                        <strong class="job-role">DevOps Engineer</strong>
                         <p>November 2013 - December 2015 | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Migrated the multi-geography application from a single-node to a highly scalable and secured infrastructure, concurrently upgrading to Rails 4.x.</li>
@@ -162,7 +190,7 @@
                 <div class="terminal-card">
                     <h3>Tata Consultancy Services <a href="https://www.tcs.com/" target="_blank"><i class="fas fa-link"></i></a></h3>
                     <div>
-                        <strong>Full Stack Engineer - Innovation Labs</strong>
+                        <strong class="job-role">Full Stack Engineer - Innovation Labs</strong>
                         <p>November 2012 - November 2013</p>
                         <ul>
                             <li>Developed and scaled an enterprise social collaboration platform to 300K+ users. Built wikis, messaging, and modernized notifications with AngularJS.</li>
@@ -192,4 +220,3 @@
     </script>
 </body>
 </html>
-
