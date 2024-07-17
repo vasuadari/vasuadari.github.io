@@ -34,6 +34,18 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 24px;
 }
 
+.header h1 a {
+    text-decoration: none;
+    color: var(--font-color);
+    cursor: pointer; /* Default cursor style */
+    border-bottom: none;
+}
+
+.header h1 a:hover {
+    cursor: pointer; /* Change cursor on hover */
+    background-color: var(--background-color);
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -70,7 +82,7 @@ body.dark-theme {
     background-color: #151515;
     color: #D3D3D3;
 }
-body.dark-theme a {
+body.dark-theme a:not(.home) {
     color: #1a95e0;
 }
 body.dark-theme .terminal-card > header {
