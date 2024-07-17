@@ -60,6 +60,11 @@ h1, h2, h3, h4, h5, h6 {
 .nav-menu a {
     text-decoration: none;
     color: var(--font-color);
+    border-bottom: none;
+}
+
+.nav-menu a:hover {
+    background-color: #8BC34A;
 }
 
 .nav-menu .active {
@@ -106,6 +111,9 @@ body.dark-theme .nav-menu a {
 }
 body.dark-theme .nav-menu .active {
     border-bottom: 2px solid #1a95e0;
+}
+body.dark-theme h1 a {
+    color: #D3D3D3;
 }
 
 .header-right {
