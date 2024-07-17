@@ -31,6 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 .header h1 {
     margin: 0;
     flex: 1;
+    font-size: 24px;
 }
 
 .nav-menu {
@@ -115,12 +116,9 @@ body.dark-theme .nav-menu .active {
 }
 
 h1::after {
-    content: "==========";
-
+    content: "";
     position: absolute;
-
     bottom: var(--global-space);
-
     left: 0;
 }
 
