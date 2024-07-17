@@ -78,11 +78,11 @@ body.dark-theme .terminal-card {
 body.dark-theme .terminal-card > div {
     background-color: #272727;
 }
-body.dark-theme h1, body-dark-theme h2, body-dark-theme h3, body-dark-theme h4, body-dark-theme h5, body-dark-theme h6 {
+body.dark-theme h1, body.dark-theme h2, body.dark-theme h3, body.dark-theme h4, body.dark-theme h5, body.dark-theme h6 {
     color: #fff;
 }
 body.dark-theme .job-role {
-    color: #1a95e0;
+    color: #1a95e0; /* Ensure job role text color is visible in dark mode */
 }
 body.dark-theme .nav-menu a {
     color: #1a95e0;
