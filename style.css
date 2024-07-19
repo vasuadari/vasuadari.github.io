@@ -1,7 +1,13 @@
+:root {
+    --background-color-light: #fff;
+    --font-color-light: #000;
+    --background-color-dark: #151515;
+    --font-color-dark: #D3D3D3;
+}
 /* Light Theme */
 body {
-    background-color: var(--background-color);
-    color: var(--font-color);
+    background-color: var(--background-color-light);
+    color: var(--font-color-light);
     font-family: 'Roboto Mono', monospace;
     font-weight: 100;
     font-size: 16px;
@@ -10,7 +16,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--font-color);
+    color: var(--font-color-light);
 }
 
 /* Container */
@@ -36,14 +42,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .header h1 a {
     text-decoration: none;
-    color: var(--font-color);
+    color: var(--font-color-light);
     cursor: pointer; /* Default cursor style */
     border-bottom: none;
 }
 
 .header h1 a:hover {
     cursor: pointer; /* Change cursor on hover */
-    background-color: var(--background-color);
+    background-color: var(--background-color-light);
 }
 
 .nav-menu {
@@ -59,17 +65,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-menu a {
     text-decoration: none;
-    color: var(--font-color);
+    color: var(--font-color-light);
     border-bottom: none;
 }
 
 a:hover {
-    background-color: var(--background-color);
+    background-color: var(--background-color-light);
 }
 
 .nav-menu .active {
     font-weight: bold;
-    border-bottom: 2px solid var(--font-color);
+    border-bottom: 2px solid var(--font-color-light);
 }
 
 .nav-menu > li::after {
@@ -83,20 +89,20 @@ section {
 
 .job-role {
     font-weight: bold;
-    color: var(--font-color);
+    color: var(--font-color-light);
 }
 
 /* Dark Theme */
 body.dark-theme {
-    background-color: #151515;
-    color: #D3D3D3;
+    background-color: var(--background-color-dark);
+    color: var(--font-color-dark);
 }
 body.dark-theme a {
-    color: #D3D3D3;
+    color: var(--font-color-dark);
 }
 body.dark-theme .terminal-card > header {
-    background-color: #1a95e0;
-    color: #D3D3D3;
+    background-color: var(--background-color-dark);
+    color: var(--font-color-dark);
 }
 body.dark-theme .terminal-card {
     border-color: #727578;
@@ -105,7 +111,7 @@ body.dark-theme .terminal-card > div {
     background-color: #272727;
 }
 body.dark-theme h1, body.dark-theme h2, body.dark-theme h3, body.dark-theme h4, body.dark-theme h5, body.dark-theme h6 {
-    color: #D3D3D3;
+    color: var(--font-color-dark);
 }
 body.dark-theme .job-role {
     color: #1a95e0; /* Ensure job role text color is visible in dark mode */
@@ -114,7 +120,7 @@ body.dark-theme .nav-menu .active {
     border-bottom: 2px solid #1a95e0;
 }
 body.dark-theme h1 a {
-    color: #D3D3D3;
+    color: var(--font-color-dark);
 }
 
 .header-right {
@@ -166,6 +172,7 @@ a.sketch-underline {
     position: relative;
     text-decoration: none;
     color: #000; /* Adjust text color as needed */
+    border-bottom: none;
 }
 
 a.sketch-underline:after {
