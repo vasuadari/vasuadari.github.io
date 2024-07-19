@@ -63,8 +63,8 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: none;
 }
 
-.nav-menu a:hover {
-    background-color: #8BC34A;
+a:hover {
+    background-color: var(--background-color);
 }
 
 .nav-menu .active {
@@ -157,3 +157,26 @@ h1::after {
         opacity: 0;
     }
 }
+
+a.sketch-underline {
+    position: relative;
+    text-decoration: none;
+    color: #000; /* Adjust text color as needed */
+}
+
+a.sketch-underline:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -5px; /* Adjust if needed for visual alignment */
+    height: 5px; /* Underline thickness */
+    background-image: url("data:image/svg+xml,%3Csvg width='6' height='5' viewBox='0 0 6 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1.5 H6' stroke='%23FFFF00' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    transition: filter 0.3s ease-in-out; /* Smooth transition for the filter */
+}
+
+a.sketch-underline:hover:after {
+    filter: brightness(0.8); /* Darken the color slightly on hover */
+}
+
