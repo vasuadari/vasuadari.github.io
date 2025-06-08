@@ -32,9 +32,9 @@
             <article>
                 <header class="blog-post-header">
                     <h2>Sample Blog Post Title</h2>
-                    <p class="reading-time">5 min read</p>
+                    <p class="reading-time" id="reading-time-display">5 min read</p>
                 </header>
-                <div class="blog-content">
+                <div class="blog-content" id="blog-article-content">
                     <p>This is a paragraph of sample blog content. It's designed to give you an idea of how a blog post might look. We'll aim for a style reminiscent of Medium, with clear typography and a comfortable reading width.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <p>Another paragraph to demonstrate spacing and flow. We can include headings, lists, code blocks, and images in a real post.</p>
@@ -53,5 +53,15 @@
         </section>
     </div>
     <script src="script.js"></script>
+    <script src="blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readingTime = calculateReadingTime('blog-article-content');
+            const readingTimeDisplay = document.getElementById('reading-time-display');
+            if (readingTimeDisplay) {
+                readingTimeDisplay.textContent = readingTime;
+            }
+        });
+    </script>
 </body>
 </html>
