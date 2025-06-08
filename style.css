@@ -191,3 +191,156 @@ a.sketch-underline:hover:after {
     filter: brightness(0.8); /* Darken the color slightly on hover */
 }
 
+/* Blog Post Styling */
+.blog-post {
+    margin-top: 2rem;
+}
+
+.blog-post article {
+    max-width: 700px; /* Medium-like content width */
+    margin: 0 auto; /* Center the content */
+}
+
+.blog-post-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.blog-post-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.reading-time {
+    font-size: 0.9rem;
+    color: #888; /* Light gray for less emphasis */
+}
+
+body.dark-theme .reading-time {
+    color: #bbb; /* Lighter gray for dark theme */
+}
+
+.blog-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.blog-content h3 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.blog-content p,
+.blog-content ul,
+.blog-content ol {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content a {
+    color: #1a73e8; /* Standard link color */
+    text-decoration: underline;
+}
+
+body.dark-theme .blog-content a {
+    color: #8ab4f8; /* Lighter link color for dark theme */
+}
+
+.blog-post-footer {
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+
+body.dark-theme .blog-post-footer {
+    border-top: 1px solid #444;
+}
+
+.labels a {
+    margin-right: 0.5rem;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+body.dark-theme .labels a {
+    background-color: #333;
+    color: #ccc;
+}
+
+.labels a:hover {
+    background-color: #e0e0e0;
+}
+
+body.dark-theme .labels a:hover {
+    background-color: #444;
+}
+
+/* Blog List Styling */
+.blog-list {
+    margin-top: 2rem;
+}
+
+.blog-list h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.blog-list-item {
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+}
+
+body.dark-theme .blog-list-item {
+    border: 1px solid #444;
+    background-color: #2b2b2b; /* Slightly lighter than main dark background */
+}
+
+.blog-list-item h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.blog-list-item h3 a {
+    text-decoration: none;
+    color: var(--font-color-light); /* Use existing variables */
+    border-bottom: none; /* Remove underline from terminal.css */
+}
+
+body.dark-theme .blog-list-item h3 a {
+    color: var(--font-color-dark);
+}
+
+.blog-list-item h3 a:hover {
+    text-decoration: underline; /* Add underline on hover for clarity */
+    background-color: transparent; /* Override general hover if any */
+}
+
+.blog-list-item .timestamp {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+}
+
+body.dark-theme .blog-list-item .timestamp {
+    color: #bbb;
+}
+
+/* Ensure sketch-underline is visible in dark theme for nav */
+body.dark-theme a.sketch-underline:after {
+    background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' viewBox='0 0 6 5' class='svg-stroke' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1.5 H6' stroke='%238ab4f8' stroke-width='3' fill='none'/%3E%3C/svg%3E"); /* Lighter blue for dark theme */
+}
+
+body.dark-theme a.sketch-underline:hover:after {
+    filter: brightness(0.8);
+}
+
+/* Ensure nav menu active link is styled correctly in dark theme for blog.html */
+body.dark-theme .nav-menu a.active {
+    border-bottom: 2px solid #8ab4f8; /* Lighter blue for active link in dark mode */
+}
