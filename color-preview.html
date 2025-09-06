@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Preview - Vasu Adari</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .theme-preview {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .theme-header {
+            padding: 1rem;
+            background: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .theme-content {
+            padding: 2rem;
+            min-height: 300px;
+        }
+
+        .theme-content h1 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .theme-content h2 {
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .theme-content p {
+            margin-bottom: 1rem;
+        }
+
+        .theme-content a {
+            text-decoration: none;
+            border-bottom: 1px solid;
+        }
+
+        .theme-content a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+        }
+
+        /* Current Theme */
+        .current {
+            background-color: #fff;
+            color: #000;
+        }
+        .current h1, .current h2 { color: #000; }
+        .current a { color: #000; border-color: #000; }
+
+        /* Nord Theme */
+        .nord {
+            background-color: #2e3440;
+            color: #d8dee9;
+        }
+        .nord h1, .nord h2 { color: #d8dee9; }
+        .nord a { color: #88c0d0; border-color: #88c0d0; }
+
+        /* Dracula Theme */
+        .dracula {
+            background-color: #282a36;
+            color: #f8f8f2;
+        }
+        .dracula h1, .dracula h2 { color: #f8f8f2; }
+        .dracula a { color: #bd93f9; border-color: #bd93f9; }
+
+        /* Tokyo Night Theme */
+        .tokyo-night {
+            background-color: #1a1b26;
+            color: #c0caf5;
+        }
+        .tokyo-night h1, .tokyo-night h2 { color: #c0caf5; }
+        .tokyo-night a { color: #7aa2f7; border-color: #7aa2f7; }
+
+        /* Gruvbox Theme */
+        .gruvbox {
+            background-color: #282828;
+            color: #ebdbb2;
+        }
+        .gruvbox h1, .gruvbox h2 { color: #ebdbb2; }
+        .gruvbox a { color: #fabd2f; border-color: #fabd2f; }
+
+        /* Solarized Dark Theme */
+        .solarized-dark {
+            background-color: #002b36;
+            color: #839496;
+        }
+        .solarized-dark h1, .solarized-dark h2 { color: #839496; }
+        .solarized-dark a { color: #268bd2; border-color: #268bd2; }
+
+        /* GitHub Light Theme */
+        .github-light {
+            background-color: #ffffff;
+            color: #24292f;
+        }
+        .github-light h1, .github-light h2 { color: #24292f; }
+        .github-light a { color: #0969da; border-color: #0969da; }
+
+        /* Catppuccin Latte Theme */
+        .catppuccin-latte {
+            background-color: #eff1f5;
+            color: #4c4f69;
+        }
+        .catppuccin-latte h1, .catppuccin-latte h2 { color: #4c4f69; }
+        .catppuccin-latte a { color: #1e66f5; border-color: #1e66f5; }
+
+        /* Rose Pine Theme */
+        .rose-pine {
+            background-color: #191724;
+            color: #e0def4;
+        }
+        .rose-pine h1, .rose-pine h2 { color: #e0def4; }
+        .rose-pine a { color: #ebbcba; border-color: #ebbcba; }
+
+        /* Everforest Theme */
+        .everforest {
+            background-color: #2d353b;
+            color: #d3c6aa;
+        }
+        .everforest h1, .everforest h2 { color: #d3c6aa; }
+        .everforest a { color: #a7c080; border-color: #a7c080; }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        
+        <div class="theme-preview">
+            <div class="theme-header">Current Theme</div>
+            <div class="theme-content current">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Nord</div>
+            <div class="theme-content nord">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Dracula</div>
+            <div class="theme-content dracula">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Tokyo Night</div>
+            <div class="theme-content tokyo-night">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Gruvbox</div>
+            <div class="theme-content gruvbox">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Solarized Dark</div>
+            <div class="theme-content solarized-dark">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">GitHub Light</div>
+            <div class="theme-content github-light">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Catppuccin Latte</div>
+            <div class="theme-content catppuccin-latte">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Rose Pine</div>
+            <div class="theme-content rose-pine">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+        <div class="theme-preview">
+            <div class="theme-header">Everforest</div>
+            <div class="theme-content everforest">
+                <h1>Vasu Adari</h1>
+                <ul class="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Me</a></li>
+                </ul>
+                <h2>Blogs</h2>
+                <p><a href="#">The Gravity of Vim: How I Escaped the Mouse</a></p>
+                <p>Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a></p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
