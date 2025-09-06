@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Understanding CORS: Cross-Origin Resource Sharing - Vasu Adari</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command">vim understanding-cors-cross-origin-resource-sharing.md</span>
+        </div>
+        <div class="terminal-output blog-article">
+            <div class="vim-header">
+                <div class="vim-status-line">
+                    <span class="vim-filename">~/blogs/understanding-cors-cross-origin-resource-sharing.md</span>
+                    <span class="vim-reading-time" id="reading-time-display">5 min read</span>
+                </div>
+            </div>
+
+            <div class="vim-content" id="blog-article-content">
+                <h1 class="vim-title"># Understanding CORS: Cross-Origin Resource Sharing</h1>
+                <p>As web applications become more complex and interconnected, I'm encountering more scenarios where my frontend needs to communicate with APIs hosted on different domains. This is where Cross-Origin Resource Sharing (CORS) comes into play—a critical web security mechanism that I'm learning to navigate.</p>
+
+                <p>CORS is the browser's way of controlling how web pages in one domain can request and interact with resources from another domain. It's a security feature that prevents malicious websites from accessing sensitive data, but it can also be a source of confusion for developers like me who are building legitimate cross-origin applications.</p>
+
+                <h3>## The Security Challenge</h3>
+
+                <p>Imagine I have a JavaScript application hosted on <code>https://myapp.com</code> that needs to fetch user data from an API at <code>https://api.example.com</code>. Without CORS, this could potentially expose sensitive information or enable unauthorized access to resources.</p>
+
+                <p>The browser implements CORS to ensure that cross-origin requests are only allowed when the target server explicitly permits them. This prevents scenarios where a malicious website could secretly make requests to your bank's API using your stored cookies.</p>
+
+                <h3>## Key CORS Components</h3>
+
+                <p>CORS introduces a set of HTTP headers that enable secure cross-origin communication. I'm learning that these headers work in pairs—request headers from the client and response headers from the server.</p>
+
+                <p><strong>Request Headers:</strong></p>
+
+                <p><code>Origin</code>: This header indicates where a request originates from. The browser automatically includes this when making cross-origin requests.</p>
+
+                <p><code>Access-Control-Request-Method</code>: Used in preflight requests to specify which HTTP method will be used in the actual request.</p>
+
+                <p><code>Access-Control-Request-Headers</code>: Lists any custom headers that will be included in the actual request.</p>
+
+                <p><strong>Response Headers:</strong></p>
+
+                <p><code>Access-Control-Allow-Origin</code>: This is the most important header—it defines which origins are permitted to access the resource. It can be a specific domain, a wildcard (*), or null.</p>
+
+                <p><code>Access-Control-Allow-Methods</code>: Specifies which HTTP methods are allowed when accessing the resource.</p>
+
+                <p><code>Access-Control-Allow-Headers</code>: Indicates which headers can be used during the actual request.</p>
+
+                <h3>## Understanding Request Types</h3>
+
+                <p>I'm discovering that CORS handles two primary types of requests differently:</p>
+
+                <p><strong>Simple Requests:</strong> These are straightforward requests that meet specific criteria—they use safe methods like GET, POST (with certain content types), or DELETE, and only include safe-listed headers. These requests go through directly without a preflight check.</p>
+
+                <p><strong>Preflight Requests:</strong> When I need to make a request that doesn't qualify as "simple"—perhaps using a custom header or a method like PUT—the browser first sends an OPTIONS request to check if the server allows the cross-origin request. Only if this preflight request succeeds will the browser send the actual request.</p>
+
+                <h3>## Working with Credentials</h3>
+
+                <p>One area that's particularly tricky is handling requests that include credentials like cookies or authorization headers. By default, cross-origin requests don't include credentials.</p>
+
+                <p>When I need to send cookies with cross-origin requests, I must:</p>
+
+                <p>1. Set the <code>withCredentials</code> flag to true on the client side</p>
+                <p>2. Configure the server to include <code>Access-Control-Allow-Credentials: true</code></p>
+                <p>3. Specify exact origins (wildcards aren't allowed for credentialed requests)</p>
+
+                <h3>## Common CORS Scenarios</h3>
+
+                <p>I'm encountering several common patterns in my development work:</p>
+
+                <p><strong>API Integration:</strong> My single-page applications frequently need to communicate with REST APIs hosted on different subdomains or entirely different domains.</p>
+
+                <p><strong>Third-party Services:</strong> Integrating with external services like payment processors or analytics providers often involves cross-origin requests.</p>
+
+                <p><strong>Microservices Architecture:</strong> When services are distributed across different domains, CORS configuration becomes crucial for inter-service communication from the browser.</p>
+
+                <h3>## Debugging CORS Issues</h3>
+
+                <p>When CORS isn't configured correctly, I see errors like "blocked by CORS policy" in the browser console. I'm learning to debug these systematically:</p>
+
+                <p>1. Check if the server includes the correct <code>Access-Control-Allow-Origin</code> header</p>
+                <p>2. Verify that preflight requests (OPTIONS) are handled properly</p>
+                <p>3. Ensure credential settings match on both client and server</p>
+                <p>4. Use browser developer tools to inspect the actual headers being sent and received</p>
+
+                <h3>## Security Best Practices</h3>
+
+                <p>As I implement CORS in my applications, I'm keeping these security considerations in mind:</p>
+
+                <p><strong>Principle of Least Privilege:</strong> Instead of using wildcard origins, I specify exact domains that need access.</p>
+
+                <p><strong>Validate Origins:</strong> On the server side, I implement proper origin validation rather than blindly reflecting the Origin header.</p>
+
+                <p><strong>Be Cautious with Credentials:</strong> I only allow credentials when absolutely necessary and ensure proper authentication mechanisms are in place.</p>
+
+                <h3>## Looking Forward</h3>
+
+                <p>Understanding CORS is proving essential as I build more sophisticated web applications. While it can be challenging initially, I'm finding that a solid grasp of these concepts makes me more confident in building secure, cross-origin web applications.</p>
+
+                <p>The key insight I'm gaining is that CORS isn't just a technical hurdle to overcome—it's a important security mechanism that, when properly understood and implemented, enables safe cross-origin communication while protecting users from potential security threats.</p>
+
+                <p>If you're interested in exploring the complete examples and implementation details, check out my CORS learning repository: <a href="https://github.com/vasuadari/learn_cors" target="_blank" rel="noopener noreferrer">learn_cors</a></p>
+            </div>
+
+            <footer class="blog-post-footer">
+              <p class="labels">Labels:
+                <a href="#">CORS</a>,
+                <a href="#">Web Security</a>,
+                <a href="#">JavaScript</a>,
+                <a href="#">API</a>
+              </p>
+            </footer>
+        </div>
+
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-cursor">_</span>
+        </div>
+    </div>
+
+    <script src="blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readingTime = calculateReadingTime('blog-article-content');
+            const readingTimeDisplay = document.getElementById('reading-time-display');
+            if (readingTimeDisplay) {
+                readingTimeDisplay.textContent = readingTime;
+            }
+        });
+    </script>
+</body>
+</html>
