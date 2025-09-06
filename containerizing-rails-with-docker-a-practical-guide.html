@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Containerizing Rails with Docker: A Practical Guide - Vasu Adari</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command">vim containerizing-rails-with-docker-a-practical-guide.md</span>
+        </div>
+        <div class="terminal-output blog-article">
+            <div class="vim-header">
+                <div class="vim-status-line">
+                    <span class="vim-filename">~/blogs/containerizing-rails-with-docker-a-practical-guide.md</span>
+                    <span class="vim-reading-time" id="reading-time-display">8 min read</span>
+                </div>
+            </div>
+
+            <div class="vim-content" id="blog-article-content">
+                <h1 class="vim-title"># Containerizing Rails with Docker: A Practical Guide</h1>
+                <p>Docker is revolutionizing how we think about application deployment. The promise is compelling: wrap your application with all its dependencies into a container, keeping your host machine clean while ensuring consistent environments across development, testing, and production.</p>
+
+                <p>I'm diving deep into Docker fundamentals and creating a comprehensive guide for containerizing Rails applications. Here's what I'm learning about turning monolithic Rails apps into portable, scalable containers.</p>
+
+                <h3>## Understanding Docker's Core Concepts</h3>
+
+                <p>Docker introduces a paradigm shift from virtual machines to containerization. Instead of virtualizing entire operating systems, Docker containers share the host OS kernel while maintaining isolation through namespaces and cgroups.</p>
+
+                <p>The key concepts that are clicking for me:</p>
+
+                <p><strong>Images vs Containers:</strong> Think of images as blueprints and containers as running instances. An image is immutable; a container is where your application actually runs.</p>
+
+                <p><strong>Dockerfiles:</strong> These are recipes for building images. Every line in a Dockerfile creates a new layer, and Docker's layer caching makes rebuilds incredibly fast.</p>
+
+                <p><strong>Docker Compose:</strong> This orchestrates multi-container applications. Instead of managing individual containers, you define your entire stack in a single YAML file.</p>
+
+                <h3>## Containerizing a Rails Application</h3>
+
+                <p>The real challenge isn't understanding Docker concepts—it's figuring out how to properly containerize a Rails application with all its dependencies. Rails apps typically need a web server, database, background job processor, and cache store.</p>
+
+                <p>Here's the architecture I'm settling on:</p>
+
+                <p><strong>Application Container:</strong> The Rails app itself, with all gems and dependencies bundled in. I'm using Ruby's official image as the base and carefully optimizing the Dockerfile for faster builds.</p>
+
+                <p><strong>Database Container:</strong> MySQL in its own container, with data persistence handled through Docker volumes. This separation means I can upgrade, backup, or scale the database independently.</p>
+
+                <p><strong>Background Jobs:</strong> Sidekiq running in a separate container, sharing the same application code but configured differently. This allows horizontal scaling of background processing.</p>
+
+                <p><strong>Cache Layer:</strong> Redis for session storage and caching, again in its own container for independence and scalability.</p>
+
+                <h3>## The Docker Compose Workflow</h3>
+
+                <p>Docker Compose is transforming how I manage development environments. Instead of <code>bundle install</code>, <code>rails server</code>, starting MySQL, firing up Redis, and launching Sidekiq in separate terminals, I have one command: <code>docker-compose up</code>.</p>
+
+                <p>The magic is in the service linking. Containers can communicate using service names instead of IP addresses. My Rails app connects to the database at <code>mysql:3306</code> and Redis at <code>redis:6379</code>. Docker's internal networking handles the rest.</p>
+
+                <p>Environment variables are becoming crucial for configuration. Different environments (development, staging, production) can use the same images with different configurations injected at runtime.</p>
+
+                <h3>## Production Deployment with Nginx</h3>
+
+                <p>For production deployment, I'm adding Nginx as a reverse proxy. This setup provides several benefits: static asset serving, SSL termination, load balancing capabilities, and protection for the Rails application server.</p>
+
+                <p>The Nginx container configuration handles routing, serving static files directly while proxying dynamic requests to the Rails container. This architecture scales beautifully—I can spin up multiple Rails containers behind the same Nginx proxy for horizontal scaling.</p>
+
+                <h3>## Data Persistence and Volume Management</h3>
+
+                <p>One of the trickiest aspects is handling persistent data. Containers are ephemeral by design, but databases need to persist data beyond container lifecycles.</p>
+
+                <p>Docker volumes solve this elegantly. I'm using named volumes for database data and bind mounts for development code synchronization. This approach means I can destroy and recreate containers without losing data, while still maintaining fast development feedback loops.</p>
+
+                <h3>## Lessons Learned</h3>
+
+                <p>Containerizing Rails is teaching me several important lessons about modern application architecture:</p>
+
+                <p><strong>Immutable Infrastructure:</strong> Containers are pushing me toward treating infrastructure as code. Environment configuration becomes version-controlled and reproducible.</p>
+
+                <p><strong>Service Decomposition:</strong> Breaking the monolith into services (web, worker, database, cache) makes each component easier to understand, scale, and maintain.</p>
+
+                <p><strong>Development-Production Parity:</strong> Docker eliminates "works on my machine" problems. Development and production environments become nearly identical.</p>
+
+                <p><strong>Operational Simplicity:</strong> Deployment becomes a matter of pulling new images and restarting containers. Rollbacks are equally straightforward.</p>
+
+                <h3>## The Impact on Development Workflow</h3>
+
+                <p>Docker is fundamentally changing how I approach development. New team members can get a complete development environment running with <code>git clone</code> and <code>docker-compose up</code>. No more installing specific Ruby versions, configuring databases, or managing system dependencies.</p>
+
+                <p>This consistency extends to CI/CD pipelines. The same containers that run locally can be tested in CI and deployed to production. The entire pipeline becomes more reliable and predictable.</p>
+
+                <p>Diving deep into Docker is proving to be one of the best technical investments I'm making. It's shaping how I think about application architecture, deployment strategies, and development environments. The principles I'm learning—immutability, service isolation, environment parity—feel like they'll be relevant for years to come.</p>
+
+                <p>If you're interested in the complete implementation details, check out my Docker repository: <a href="https://github.com/vasuadari/docker" target="_blank" rel="noopener noreferrer">docker learning guide</a></p>
+            </div>
+
+            <footer class="blog-post-footer">
+              <p class="labels">Labels:
+                <a href="#">Docker</a>,
+                <a href="#">Rails</a>,
+                <a href="#">DevOps</a>,
+                <a href="#">Containerization</a>
+              </p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readingTime = calculateReadingTime('blog-article-content');
+            const readingTimeDisplay = document.getElementById('reading-time-display');
+            if (readingTimeDisplay) {
+                readingTimeDisplay.textContent = readingTime;
+            }
+        });
+    </script>
+
+    <div class="terminal-line">
+        <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+        <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+    </div>
+    <div class="terminal-line">
+        <span class="terminal-prompt">vasu@adari:~$</span>
+        <span class="terminal-cursor">_</span>
+    </div>
+    </div>
+</body>
+</html>
