@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Learning Terraform: Infrastructure as Code - Vasu Adari</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command">vim learning-terraform-infrastructure-as-code.md</span>
+        </div>
+        <div class="terminal-output blog-article">
+            <div class="vim-header">
+                <div class="vim-status-line">
+                    <span class="vim-filename">~/blogs/learning-terraform-infrastructure-as-code.md</span>
+                    <span class="vim-reading-time" id="reading-time-display">9 min read</span>
+                </div>
+            </div>
+
+            <div class="vim-content" id="blog-article-content">
+                <h1 class="vim-title"># Learning Terraform: Infrastructure as Code</h1>
+                <p>As cloud infrastructure becomes more complex, managing it through point-and-click interfaces is becoming unsustainable. I'm diving into Terraform to learn infrastructure as code (IaC) principles, and there's no better way to start than with a practical project.</p>
+
+                <p>My goal is simple: deploy a hello-world application on AWS with proper security and scalability patterns. But instead of manually creating VPCs, subnets, and load balancers through the AWS console, I want everything defined in code that can be version controlled, reviewed, and reproducibly deployed.</p>
+
+                <h3>## Why Infrastructure as Code?</h3>
+
+                <p>Before jumping into Terraform, it's worth understanding why infrastructure as code matters. In traditional infrastructure management, setting up environments involves manual steps, documentation that gets outdated, and configurations that drift over time.</p>
+
+                <p>Infrastructure as Code solves these problems by treating infrastructure the same way we treat application code:</p>
+
+                <p>• <strong>Version Control</strong>: Every infrastructure change is tracked and can be rolled back</p>
+                <p>• <strong>Reproducibility</strong>: The same code produces identical environments every time</p>
+                <p>• <strong>Documentation</strong>: The code itself documents how infrastructure is configured</p>
+                <p>• <strong>Collaboration</strong>: Teams can review infrastructure changes like code reviews</p>
+
+                <h3>## Terraform Fundamentals</h3>
+
+                <p>Terraform uses HashiCorp Configuration Language (HCL) to describe desired infrastructure state. The key concepts I'm learning:</p>
+
+                <p><strong>Providers</strong>: These connect Terraform to APIs of cloud services like AWS, GCP, or Azure. For my project, I'm using the AWS provider.</p>
+
+                <p><strong>Resources</strong>: These represent infrastructure components like EC2 instances, VPCs, or load balancers. Each resource has a type and configuration.</p>
+
+                <p><strong>State</strong>: Terraform tracks the current state of infrastructure in a state file, allowing it to plan what changes are needed.</p>
+
+                <p><strong>Plan and Apply</strong>: The workflow involves planning changes (showing what will happen) before applying them to actual infrastructure.</p>
+
+                <h3>## Project Architecture: Secure Hello World</h3>
+
+                <p>My hello-world project isn't just a simple EC2 instance. I'm building a production-ready architecture that demonstrates security and scalability best practices:</p>
+
+                <p><strong>VPC with Public and Private Subnets</strong>: The application runs in private subnets for security, while load balancers operate in public subnets to handle internet traffic.</p>
+
+                <p><strong>Application Load Balancer</strong>: Instead of exposing EC2 instances directly to the internet, traffic flows through an ALB that can distribute load and provide SSL termination.</p>
+
+                <p><strong>Security Groups</strong>: Network-level security controls that act like firewalls, allowing only necessary traffic between components.</p>
+
+                <p><strong>Internet and NAT Gateways</strong>: Public subnets use an Internet Gateway for bidirectional internet access, while private subnets use NAT Gateways for outbound-only connectivity.</p>
+
+                <h3>## Building the VPC Foundation</h3>
+
+                <p>Every AWS deployment starts with networking. I'm creating a VPC with a 10.1.0.0/16 CIDR block, which provides plenty of IP addresses for future growth:</p>
+
+                <pre><code class="language-hcl">resource "aws_vpc" "main" {
+  cidr_block           = "10.1.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = {
+    Name = "hello-world-vpc"
+  }
+}</code></pre>
+
+                <p>The VPC needs both public and private subnets across multiple availability zones for high availability. Public subnets host load balancers that need internet access, while private subnets host application servers that should be isolated from direct internet access.</p>
+
+                <h3>## EC2 and Application Deployment</h3>
+
+                <p>The application itself runs on a t2.micro EC2 instance in the private subnet. I'm using user data scripts to bootstrap the instance with Docker and deploy the hello-world application:</p>
+
+                <pre><code class="language-hcl">resource "aws_instance" "app" {
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.private.id
+  vpc_security_group_ids = [aws_security_group.app.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y docker
+              systemctl start docker
+              systemctl enable docker
+              docker run -d -p 80:80 nginx:alpine
+              EOF
+
+  tags = {
+    Name = "hello-world-app"
+  }
+}</code></pre>
+
+                <p>The user data script installs Docker and runs a simple Nginx container. In a real application, this might pull a custom image from ECR or install application-specific dependencies.</p>
+
+                <h3>## Load Balancing and High Availability</h3>
+
+                <p>The Application Load Balancer is crucial for both security and scalability. It sits in public subnets and forwards traffic to application instances in private subnets:</p>
+
+                <pre><code class="language-hcl">resource "aws_lb" "main" {
+  name               = "hello-world-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb.id]
+  subnets            = [aws_subnet.public_a.id, aws_subnet.public_b.id]
+
+  enable_deletion_protection = false
+
+  tags = {
+    Name = "hello-world-alb"
+  }
+}</code></pre>
+
+                <p>The load balancer includes health checks to ensure traffic only goes to healthy instances. This setup provides the foundation for auto-scaling groups and blue-green deployments.</p>
+
+                <h3>## Security Groups: Network-Level Security</h3>
+
+                <p>Security groups act as virtual firewalls, and getting them right is critical for security. I'm implementing least-privilege access:</p>
+
+                <p><strong>ALB Security Group</strong>: Allows HTTP traffic (port 80) from anywhere on the internet, but only outbound traffic to application instances.</p>
+
+                <p><strong>Application Security Group</strong>: Allows HTTP traffic only from the ALB security group, and outbound internet access for updates and external API calls.</p>
+
+                <p>This creates a secure network topology where the application isn't directly accessible from the internet, but can still receive traffic through the load balancer.</p>
+
+                <h3>## The Terraform Workflow</h3>
+
+                <p>Working with Terraform follows a predictable pattern that becomes second nature:</p>
+
+                <p><strong>Initialize</strong>: <code>terraform init</code> downloads provider plugins and sets up the working directory.</p>
+
+                <p><strong>Plan</strong>: <code>terraform plan</code> shows exactly what changes Terraform will make before applying them.</p>
+
+                <p><strong>Apply</strong>: <code>terraform apply</code> creates or modifies infrastructure to match the configuration.</p>
+
+                <p><strong>Destroy</strong>: <code>terraform destroy</code> safely removes all managed infrastructure when no longer needed.</p>
+
+                <p>The plan step is particularly valuable—it prevents surprises and lets me review changes before they affect production systems.</p>
+
+                <h3>## State Management Considerations</h3>
+
+                <p>Terraform state files track the mapping between configuration and real-world infrastructure. For learning projects, local state works fine, but production systems need remote state storage:</p>
+
+                <p>• <strong>S3 Backend</strong>: Store state files in S3 with DynamoDB locking for team collaboration</p>
+                <p>• <strong>State Locking</strong>: Prevents concurrent modifications that could corrupt state</p>
+                <p>• <strong>State Security</strong>: State files contain sensitive information and need proper access controls</p>
+
+                <h3>## Variables and Environment Management</h3>
+
+                <p>Hardcoded values make infrastructure brittle. I'm learning to use Terraform variables for flexibility:</p>
+
+                <pre><code class="language-hcl">variable "environment" {
+  description = "Environment name"
+  type        = string
+  default     = "development"
+}
+
+variable "instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t2.micro"
+}</code></pre>
+
+                <p>Variables allow the same configuration to work across development, staging, and production environments with different resource sizes and configurations.</p>
+
+                <h3>## Outputs and Integration</h3>
+
+                <p>Terraform outputs expose information about created resources that other systems might need:</p>
+
+                <pre><code class="language-hcl">output "load_balancer_dns" {
+  description = "DNS name of the load balancer"
+  value       = aws_lb.main.dns_name
+}
+
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = aws_vpc.main.id
+}</code></pre>
+
+                <p>These outputs can feed into CI/CD pipelines, monitoring systems, or other Terraform configurations.</p>
+
+                <h3>## Lessons Learned</h3>
+
+                <p>Building this hello-world infrastructure is teaching me valuable lessons about both Terraform and cloud architecture:</p>
+
+                <p><strong>Start Small, Build Up</strong>: I began with a single EC2 instance and gradually added VPCs, subnets, and load balancers. This incremental approach makes debugging easier.</p>
+
+                <p><strong>Security by Design</strong>: It's much easier to build secure architecture from the beginning than to retrofit security later.</p>
+
+                <p><strong>Plan Before You Apply</strong>: The terraform plan output is incredibly valuable. I always review it carefully before applying changes.</p>
+
+                <p><strong>Version Everything</strong>: Both Terraform configurations and state should be version controlled and backed up.</p>
+
+                <h3>## Beyond Hello World</h3>
+
+                <p>This project is my foundation for more complex infrastructure. Future enhancements I'm considering:</p>
+
+                <p>• <strong>Auto Scaling Groups</strong>: Automatically scale instances based on load</p>
+                <p>• <strong>RDS Integration</strong>: Add managed databases with proper subnet groups</p>
+                <p>• <strong>SSL/TLS</strong>: Implement HTTPS with AWS Certificate Manager</p>
+                <p>• <strong>Monitoring</strong>: Add CloudWatch alarms and logging</p>
+                <p>• <strong>Multiple Environments</strong>: Use Terraform workspaces or separate configurations</p>
+
+                <h3>## The Infrastructure as Code Mindset</h3>
+
+                <p>Learning Terraform is changing how I think about infrastructure. Instead of viewing servers and networks as pets that need individual care, I'm learning to treat them as cattle—identical, replaceable, and defined by code.</p>
+
+                <p>This mindset shift is fundamental to modern cloud operations. Infrastructure becomes more reliable, scalable, and maintainable when it's defined as code rather than configured manually.</p>
+
+                <p>The hello-world project might be simple, but it's establishing patterns and practices that scale to enterprise infrastructure management.</p>
+
+                <p>Check out the complete Terraform configuration: <a href="https://github.com/vasuadari/hello-world-terraform" target="_blank" rel="noopener noreferrer">hello-world-terraform on GitHub</a></p>
+            </div>
+
+            <footer class="blog-post-footer">
+              <p class="labels">Labels:
+                <a href="#">Terraform</a>,
+                <a href="#">Infrastructure as Code</a>,
+                <a href="#">AWS</a>,
+                <a href="#">DevOps</a>,
+                <a href="#">Cloud Infrastructure</a>
+              </p>
+            </footer>
+        </div>
+
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-cursor">_</span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readingTime = calculateReadingTime('blog-article-content');
+            const readingTimeDisplay = document.getElementById('reading-time-display');
+            if (readingTimeDisplay) {
+                readingTimeDisplay.textContent = readingTime;
+            }
+        });
+    </script>
+</body>
+</html>
