@@ -1,33 +1,32 @@
 :root {
-    --background-color-light: #eceff4;
-    --font-color-light: #2e3440;
-    --background-color-dark: #2e3440;
-    --font-color-dark: #d8dee9;
-    --accent-color-light: #5e81ac;
-    --accent-color-dark: #88c0d0;
+    --background-color: #1e1e1e;
+    --font-color: #f8f8f2;
+    --accent-color: #88c0d0;
 }
-/* Light Theme */
+/* Terminal Theme */
 body {
-    background-color: var(--background-color-light);
-    color: var(--font-color-light);
-    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #1e1e1e;
+    color: #f8f8f2;
+    font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.6;
-    margin-bottom: 1.5em;
+    margin: 0;
+    padding: 2rem;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--font-color-light);
+    color: var(--font-color);
 }
 
 em {
-    color: var(--font-color-light);
+    color: var(--font-color);
     font-style: italic;
 }
 
 strong {
-    color: var(--font-color-light);
+    color: var(--font-color);
     font-weight: bold;
 }
 
@@ -54,7 +53,7 @@ strong {
 
 .header h1 a.home {
     text-decoration: none;
-    color: var(--font-color-light);
+    color: var(--font-color);
     cursor: pointer;
     border-bottom: none;
     padding: 4px 8px;
@@ -64,7 +63,7 @@ strong {
 
 .header h1 a.home:hover {
     background-color: rgba(94, 129, 172, 0.1);
-    color: var(--accent-color-light);
+    color: var(--accent-color);
 }
 
 .nav-menu {
@@ -81,17 +80,17 @@ strong {
 
 .nav-menu a {
     text-decoration: none;
-    color: var(--font-color-light);
+    color: var(--font-color);
     transition: color 0.2s ease;
     font-weight: 500;
 }
 
 .nav-menu a:hover {
-    color: var(--accent-color-light);
+    color: var(--accent-color);
 }
 
 .nav-menu a.active {
-    color: var(--accent-color-light);
+    color: var(--accent-color);
     font-weight: 600;
 }
 
@@ -106,60 +105,9 @@ section {
 
 .job-role {
     font-weight: bold;
-    color: var(--font-color-light);
+    color: var(--font-color);
 }
 
-/* Dark Theme */
-body.dark-theme {
-    background-color: var(--background-color-dark);
-    color: var(--font-color-dark);
-}
-body.dark-theme a {
-    color: var(--font-color-dark);
-}
-body.dark-theme .terminal-card > header {
-    background-color: var(--background-color-dark);
-    color: var(--font-color-dark);
-}
-body.dark-theme .terminal-card {
-    border-color: #727578;
-}
-body.dark-theme .terminal-card > div {
-    background-color: #272727;
-}
-body.dark-theme h1, body.dark-theme h2, body.dark-theme h3, body.dark-theme h4, body.dark-theme h5, body.dark-theme h6 {
-    color: var(--font-color-dark);
-}
-
-body.dark-theme em {
-    color: var(--font-color-dark);
-}
-
-body.dark-theme strong {
-    color: var(--font-color-dark);
-}
-body.dark-theme .job-role {
-    color: var(--accent-color-dark);
-}
-body.dark-theme .nav-menu a {
-    color: var(--font-color-dark);
-}
-
-body.dark-theme .nav-menu a:hover {
-    color: var(--accent-color-dark);
-}
-
-body.dark-theme .nav-menu a.active {
-    color: var(--accent-color-dark);
-}
-body.dark-theme .header h1 a.home {
-    color: var(--font-color-dark);
-}
-
-body.dark-theme .header h1 a.home:hover {
-    background-color: rgba(136, 192, 208, 0.15);
-    color: var(--accent-color-dark);
-}
 
 .header-right {
     float: right;
@@ -254,9 +202,6 @@ a.sketch-underline:hover:after {
     color: #888; /* Light gray for less emphasis */
 }
 
-body.dark-theme .reading-time {
-    color: #bbb; /* Lighter gray for dark theme */
-}
 
 .blog-content {
     font-size: 1.1rem;
@@ -276,13 +221,10 @@ body.dark-theme .reading-time {
 }
 
 .blog-content a {
-    color: var(--accent-color-light);
+    color: var(--accent-color);
     text-decoration: underline;
 }
 
-body.dark-theme .blog-content a {
-    color: var(--accent-color-dark);
-}
 
 .blog-post-footer {
     margin-top: 2rem;
@@ -290,9 +232,6 @@ body.dark-theme .blog-content a {
     padding-top: 1rem;
 }
 
-body.dark-theme .blog-post-footer {
-    border-top: 1px solid #444;
-}
 
 .labels a {
     margin-right: 0.5rem;
@@ -304,101 +243,289 @@ body.dark-theme .blog-post-footer {
     color: #555;
 }
 
-body.dark-theme .labels a {
-    background-color: #333;
-    color: #ccc;
-}
-
 .labels a:hover {
     background-color: #e0e0e0;
 }
 
-body.dark-theme .labels a:hover {
-    background-color: #444;
+/* Fullscreen Terminal Styling */
+.terminal-session {
+    background-color: transparent;
+    color: #f8f8f2;
+    font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
 }
 
-/* Blog List Styling */
-.blog-list {
-    margin-top: 3rem;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.blog-list h2 {
-    text-align: left;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-}
-
-.blog-list-item {
-    border: 1px solid #e5e7eb;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    transition: border-color 0.2s ease;
-}
-
-body.dark-theme .blog-list-item {
-    border: 1px solid #4c566a;
-    background-color: #3b4252;
-}
-
-.blog-list-item h3 {
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    font-size: 1.4rem;
-    line-height: 1.3;
-}
-
-.blog-list-item h3 a {
-    text-decoration: none;
-    color: var(--font-color-light); /* Use existing variables */
-    border-bottom: none; /* Remove underline from terminal.css */
-}
-
-body.dark-theme .blog-list-item h3 a {
-    color: var(--font-color-dark);
-}
-
-.blog-list-item h3 a:hover {
-    text-decoration: underline; /* Add underline on hover for clarity */
-    background-color: transparent; /* Override general hover if any */
-}
-
-.blog-list-item .timestamp {
-    font-size: 0.875rem;
-    color: #6b7280;
+.terminal-line {
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.terminal-prompt {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.terminal-command {
+    color: #f8f8f2;
+}
+
+
+.terminal-output {
+    margin: 1rem 0 1.5rem 0;
+    padding-left: 0;
+}
+
+.file-entry {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto 1fr;
+    gap: 1rem;
+    padding: 0.25rem 0;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.file-permissions {
+    color: #6272a4;
     font-weight: 500;
 }
 
-body.dark-theme .blog-list-item .timestamp {
-    color: #9ca3af;
+.file-links, .file-size {
+    color: #f8f8f2;
+    text-align: right;
+    min-width: 3ch;
 }
 
-.blog-list-item .labels {
-    margin-top: 0.5rem;
+.file-owner, .file-group {
+    color: #50fa7b;
+    min-width: 4ch;
 }
 
-.blog-list-item:hover {
-    border-color: var(--accent-color-light);
+.file-date {
+    color: #ffb86c;
+    min-width: 12ch;
 }
 
-body.dark-theme .blog-list-item:hover {
-    border-color: var(--accent-color-dark);
+.file-name {
+    color: var(--accent-color) !important;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-/* Ensure sketch-underline is visible in dark theme for nav */
-body.dark-theme a.sketch-underline:after {
-    background-image: url("data:image/svg+xml,%3Csvg width='100%' height='100%' viewBox='0 0 6 5' class='svg-stroke' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1.5 H6' stroke='%2388c0d0' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+.file-name:hover {
+    color: #fff !important;
+    text-decoration: underline;
 }
 
-body.dark-theme a.sketch-underline:hover:after {
-    filter: brightness(0.8);
+.dir-name {
+    color: var(--accent-color) !important;
+    font-weight: 600;
 }
 
-/* Ensure nav menu active link is styled correctly in dark theme for blog.html */
+.dir-name.active {
+    background-color: var(--accent-color);
+    color: #1e1e1e !important;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.current-dir .file-permissions {
+    color: #50fa7b;
+}
+
+.nav-command {
+    color: #f8f8f2 !important;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-command:hover {
+    color: var(--accent-color) !important;
+    text-decoration: none;
+}
+
+.terminal-cursor {
+    background-color: var(--accent-color);
+    color: var(--background-color-dark);
+    animation: terminal-blink 1s infinite;
+    padding: 0 2px;
+}
+
+@keyframes terminal-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.about-content {
+    color: #f8f8f2;
+    line-height: 1.8;
+}
+
+.about-content p {
+    margin-bottom: 1rem;
+}
+
+.about-content a {
+    color: var(--accent-color) !important;
+    text-decoration: none;
+}
+
+.about-content a:hover {
+    color: #fff !important;
+    text-decoration: underline;
+}
+
+.about-content strong {
+    color: #50fa7b;
+}
+
+.section-divider {
+    color: #6272a4;
+    margin: 1.5rem 0;
+    font-weight: bold;
+}
+
+.skills-section p {
+    margin-bottom: 0.5rem;
+}
+
+.skill-category {
+    color: #ffb86c;
+    font-weight: bold;
+}
+
+.experience-section {
+    margin-left: 1rem;
+}
+
+.job-entry {
+    margin-bottom: 2rem;
+    border-left: 2px solid #44475a;
+    padding-left: 1rem;
+}
+
+.company-name {
+    color: #bd93f9;
+    font-weight: bold;
+}
+
+.job-title {
+    color: #50fa7b;
+    font-weight: bold;
+}
+
+.job-date {
+    color: #6272a4;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.job-entry ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.job-entry li {
+    color: #f8f8f2;
+    margin-bottom: 0.25rem;
+    line-height: 1.6;
+}
+
+.education-section {
+    margin-left: 1rem;
+}
+
+/* Vim-style blog content */
+.blog-article {
+    background-color: #1e1e1e;
+    border-radius: 4px;
+    margin: 1rem 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.vim-header {
+    background-color: #2d2d2d;
+    border-bottom: 1px solid #4d4d4d;
+}
+
+.vim-status-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: #f8f8f2;
+    background-color: #44475a;
+}
+
+.vim-filename {
+    color: #50fa7b;
+}
+
+.vim-reading-time {
+    color: #ffb86c;
+}
+
+.vim-content {
+    padding: 2rem;
+    background-color: #1e1e1e;
+    color: #f8f8f2;
+    line-height: 1.8;
+}
+
+.vim-title {
+    color: #bd93f9;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    border: none;
+}
+
+.vim-content p {
+    margin-bottom: 1.5rem;
+    color: #f8f8f2;
+}
+
+.vim-content em {
+    color: #ffb86c !important;
+    font-style: italic;
+}
+
+.vim-content strong {
+    color: #50fa7b !important;
+    font-weight: bold;
+}
+
+.vim-content code {
+    background-color: #44475a !important;
+    color: #ff79c6 !important;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+    font-size: 0.9em;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.vim-content h3 {
+    color: #8be9fd;
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.vim-content a {
+    color: var(--accent-color) !important;
+    text-decoration: none;
+}
+
+.vim-content a:hover {
+    color: #fff !important;
+    text-decoration: underline;
+}
+
+
 
 .blog-content code {
     background-color: #2d3748;
@@ -416,3 +543,4 @@ body.dark-theme a.sketch-underline:hover:after {
 .blog-content code::after {
     content: '';
 }
+

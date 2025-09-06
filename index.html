@@ -11,29 +11,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1><a class="home" href="index.html">Vasu Adari</a></h1>
-            <nav>
-                <ul class="nav-menu">
-                    <li>
-                        <a href="index.html" class="active">Home</a>
-                    </li>
-                    <li>
-                        <a href="about-me.html">About Me</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <section id="blog-list-section" class="blog-list">
-            <h2>Blogs</h2>
-            <div class="blog-list-item">
-                <h3><a href="the-gravity-of-vim-how-i-escaped-the-mouse.html">The Gravity of Vim: How I Escaped the Mouse</a></h3>
-                <p class="timestamp">June 14, 2025</p>
-                <p class="labels">Labels: <a href="#">Vim</a>, <a href="#">Text Editors</a>, <a href="#">Development</a>, <a href="#">Programming</a></p>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-command">ls -la</span>
+        </div>
+        <div class="terminal-output">
+            <div class="file-entry current-dir">
+                <span class="file-permissions">drwxr-xr-x</span>
+                <span class="file-links">3</span>
+                <span class="file-owner">vasu</span>
+                <span class="file-group">adari</span>
+                <span class="file-size">4096</span>
+                <span class="file-date">Jun 14 12:00</span>
+                <a href="about-me.html" class="file-name dir-name">about-me/</a>
             </div>
-            <!-- Add more blog list items here as new posts are created -->
-        </section>
+            <div class="file-entry current-dir">
+                <span class="file-permissions">drwxr-xr-x</span>
+                <span class="file-links">2</span>
+                <span class="file-owner">vasu</span>
+                <span class="file-group">adari</span>
+                <span class="file-size">4096</span>
+                <span class="file-date">Jun 14 12:00</span>
+                <a href="index.html" class="file-name dir-name active">blogs/</a>
+            </div>
+            <div class="file-entry">
+                <span class="file-permissions">-rw-r--r--</span>
+                <span class="file-links">1</span>
+                <span class="file-owner">vasu</span>
+                <span class="file-group">adari</span>
+                <span class="file-size">2.1K</span>
+                <span class="file-date">Jun 14 12:00</span>
+                <a href="the-gravity-of-vim-how-i-escaped-the-mouse.html" class="file-name">the-gravity-of-vim-how-i-escaped-the-mouse.md</a>
+            </div>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-cursor">_</span>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

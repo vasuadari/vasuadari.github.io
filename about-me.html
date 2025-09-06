@@ -10,50 +10,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1><a class="home" href="index.html">Vasu Adari</a></h1>
-            <nav>
-                <ul class="nav-menu">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="about-me.html" class="active">About Me</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <section>
-            <p>Email: <a href="mailto:vasuadari@icloud.com" class="sketch-underline">vasuadari@icloud.com</a> | Phone: <a href="tel:+919940364805" class="sketch-underline">+919940364805</a> | Bangalore, India</p>
-            <p><a href="https://linkedin.com/in/vasuakeel" class="sketch-underline" target="_blank">LinkedIn</a> | <a href="https://github.com/vasuadari" class="sketch-underline" target="_blank">GitHub</a> | <a href="docs/VasuAdariResume.pdf" class="sketch-underline" target="_blank" type="application/pdf">Download Resume<i class="fas fa-link"></i></a></p>
-        </section>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/about-me$</span>
+            <span class="terminal-command">cat about-me.txt</span>
+        </div>
+        <div class="terminal-output">
+            <div class="about-content">
+                <p><strong>Contact:</strong> <a href="mailto:vasuadari@icloud.com">vasuadari@icloud.com</a> | <a href="tel:+919940364805">+919940364805</a> | Bangalore, India</p>
+                <p><strong>Links:</strong> <a href="https://linkedin.com/in/vasuakeel" target="_blank">LinkedIn</a> | <a href="https://github.com/vasuadari" target="_blank">GitHub</a> | <a href="docs/VasuAdariResume.pdf" target="_blank">Resume</a></p>
 
-        <section>
-            <h2>Profile</h2>
-            <p>Innovative Software Engineer with 12 Years of Experience in Building Scalable, High-Performance Applications Across Diverse Industries.</p>
-        </section>
+                <div class="section-divider">---</div>
 
-        <section>
-            <h2>Skills</h2>
-            <div class="terminal-card">
-                <h3>Engineering</h3>
-                <div>Elixir, Ruby, JavaScript, Elasticsearch, MySQL, Postgres, Kafka, Redis</div>
-            </div>
-            <div class="terminal-card">
-                <h3>DevOps</h3>
-                <div>Docker, Kubernetes, Helm, Terraform, Ansible, GitLab, CI/CD, Git, AWS, GCP, Grafana, Graylog, NewRelic</div>
-            </div>
-        </section>
+                <p><strong>Profile:</strong></p>
+                <p>Innovative Software Engineer with 12 Years of Experience in Building Scalable, High-Performance Applications Across Diverse Industries.</p>
 
-        <section>
-            <h2>Experience</h2>
-            <div class="terminal-timeline">
-                <div class="terminal-card">
-                    <h3>Scripbox <a href="https://scripbox.com" class="sketch-underline" target="_blank"><i class="fas fa-link"></i></a></h3>
-                    <div>
-                        <strong class="job-role">Principal Engineer</strong>
-                        <p>March 2022 - Present | Bengaluru, Karnataka, India</p>
+                <div class="section-divider">---</div>
+
+                <p><strong>Skills:</strong></p>
+                <div class="skills-section">
+                    <p><span class="skill-category">Engineering:</span> Elixir, Ruby, JavaScript, Elasticsearch, MySQL, Postgres, Kafka, Redis</p>
+                    <p><span class="skill-category">DevOps:</span> Docker, Kubernetes, Helm, Terraform, Ansible, GitLab, CI/CD, Git, AWS, GCP, Grafana, Graylog, NewRelic</p>
+                </div>
+
+                <div class="section-divider">---</div>
+
+                <p><strong>Experience:</strong></p>
+                <div class="experience-section">
+                    <div class="job-entry">
+                        <p><span class="company-name">Scripbox</span> | <span class="job-title">Principal Engineer</span></p>
+                        <p class="job-date">March 2022 - Present | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Led the architectural design and implementation of a highly scalable Elixir application, replacing legacy systems during company mergers.</li>
                             <li>Developed a master data application in Elixir with DAG-based workflow, including advanced search API features.</li>
@@ -61,26 +47,20 @@
                             <li>Established Architecture Decision Records (ADRs) as standard practice, fostering better decision-making and collaboration.</li>
                         </ul>
                     </div>
-                </div>
 
-                <div class="terminal-card">
-                    <h3>Gojek Tech <a href="https://www.gojek.io/" class="sketch-underline" target="_blank"><i class="fas fa-link"></i></a></h3>
-                    <div>
-                        <strong class="job-role">Lead Software Engineer</strong>
-                        <p>December 2020 - February 2022 | Bengaluru, Karnataka, India</p>
+                    <div class="job-entry">
+                        <p><span class="company-name">Gojek Tech</span> | <span class="job-title">Lead Software Engineer</span></p>
+                        <p class="job-date">December 2020 - February 2022 | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Revamped the code structure of the API-based ad serving application on the Gojek iOS/Android platform, aligning it with bounded context principles.</li>
                             <li>Developed search-based ads for the Gojek food delivery application.</li>
                             <li>Expanded advertising capabilities to include two additional inventories, also developed an Elixir Kafka consumer to handle millions of telemetry events.</li>
                         </ul>
                     </div>
-                </div>
 
-                <div class="terminal-card">
-                    <h3>Scripbox <a href="https://scripbox.com" class="sketch-underline" target="_blank"><i class="fas fa-link"></i></a></h3>
-                    <div>
-                        <strong class="job-role">Lead Software Engineer</strong>
-                        <p>December 2015 - December 2020 | Bengaluru, Karnataka, India</p>
+                    <div class="job-entry">
+                        <p><span class="company-name">Scripbox</span> | <span class="job-title">Lead Software Engineer</span></p>
+                        <p class="job-date">December 2015 - December 2020 | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Simplified user registration flow: Implemented streamlined APIs using Ruby on Rails, resulting in increased engagement.</li>
                             <li>Enhanced portfolio management: Developed API to calculate real-time portfolio values, enabling informed investment decisions.</li>
@@ -88,43 +68,43 @@
                             <li>Modernized application architecture: Dockerized all applications and deployed to AWS Elastic Beanstalk, improving scalability and resource utilization.</li>
                         </ul>
                     </div>
-                </div>
 
-                <div class="terminal-card">
-                    <h3>Apple (Via TCS) <a href="https://apple.com" class="sketch-underline" target="_blank"><i class="fas fa-link"></i></a></h3>
-                    <div>
-                        <strong class="job-role">DevOps Engineer</strong>
-                        <p>November 2013 - December 2015 | Bengaluru, Karnataka, India</p>
+                    <div class="job-entry">
+                        <p><span class="company-name">Apple (Via TCS)</span> | <span class="job-title">DevOps Engineer</span></p>
+                        <p class="job-date">November 2013 - December 2015 | Bengaluru, Karnataka, India</p>
                         <ul>
                             <li>Migrated the multi-geography application from a single-node to a highly scalable and secured infrastructure, concurrently upgrading to Rails 4.x.</li>
                         </ul>
                     </div>
-                </div>
 
-                <div class="terminal-card">
-                    <h3>Tata Consultancy Services <a href="https://www.tcs.com/" class="sketch-underline" target="_blank"><i class="fas fa-link"></i></a></h3>
-                    <div>
-                        <strong class="job-role">Full Stack Engineer - Innovation Labs</strong>
-                        <p>November 2012 - November 2013</p>
+                    <div class="job-entry">
+                        <p><span class="company-name">Tata Consultancy Services</span> | <span class="job-title">Full Stack Engineer - Innovation Labs</span></p>
+                        <p class="job-date">November 2012 - November 2013</p>
                         <ul>
                             <li>Developed and scaled an enterprise social collaboration platform to 300K+ users. Built wikis, messaging, and modernized notifications with AngularJS.</li>
                             <li>Designed robust RESTful APIs to ensure seamless integration and extensibility.</li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section>
-            <h2>Education</h2>
-            <div class="terminal-card">
-                <h3>Rajalakshmi Institute of Technology <a href="https://ritchennai.org" class="sketch-underline" target="_blank"><i class="fas fa-link"></i></a></h3>
-                <div>
-                    <strong class="job-role">Bachelor of Technology in Information Technology</strong>
-                    <p>2008 - 2012</p>
+                <div class="section-divider">---</div>
+
+                <p><strong>Education:</strong></p>
+                <div class="education-section">
+                    <p><span class="company-name">Rajalakshmi Institute of Technology</span></p>
+                    <p><span class="job-title">Bachelor of Technology in Information Technology</span></p>
+                    <p class="job-date">2008 - 2012</p>
                 </div>
             </div>
-        </section>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/about-me$</span>
+            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-cursor">_</span>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

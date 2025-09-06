@@ -11,50 +11,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1><a class="home" href="index.html">Vasu Adari</a></h1>
-            <nav>
-                <ul class="nav-menu">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="about-me.html">About Me</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <section class="blog-post">
-          <article>
-            <header class="blog-post-header">
-              <h2>The Gravity of Vim: How I Escaped the Mouse</h2>
-              <p class="reading-time" id="reading-time-display">6 min read</p>
-            </header>
-
-            <div class="blog-content" id="blog-article-content">
-              <p>I first learned typing in a typewriter class. I loved the sharp, rhythmic noise the keys made, and even the silly mistakes felt like part of the journey. My goal was simple: increase speed while making fewer errors. Back then, I saw it as the first step toward using a computer.</p>
-
-              <p>When I joined my first job, I noticed some engineers typing effortlessly without looking at their keyboards, flying across black terminals. That immediately became my next obsession. Later, I learned it had a name—<code>touch typing</code>—and I’ve believed ever since that it’s a must-have skill that should be taught in schools. It’s one of the simplest ways to boost productivity. I’ve always been a fan of keyboard shortcuts; there’s something magical about pressing a few keys and watching things happen instantly.</p>
-
-              <p>The terminal was the next thing that caught my attention. Every engineer eventually has to manage servers, so I started learning Linux from scratch. Linux is a file-based system, and to get around you inevitably need to know the basics of the <code>vi editor</code>. The first time I opened vi, I had to google how to exit. Coming from a GUI world, navigating files in vi felt like a struggle.</p>
-
-              <p>At first, I only knew about <em>insert</em> and <em>normal</em> mode, and I relied heavily on the ↑ ↓ ← → arrow keys to move around. I probably survived that way for six months to a year. But as I began managing more servers, relying on just the arrows became frustrating. That’s when I dug deeper into vi. Back then, documentation was a bit fragmented, but one great thing about vi is that it ships with its own tutorial—you just need to follow it. The very first lesson I learned: <code>don’t use arrow keys, use h, j, k, and l.</code></p>
-
-              <p>By then my typing had improved, but I found the key repeat on macOS painfully slow. An engineer showed me how to tweak the setting, and it felt like bliss. From there, things clicked. I discovered in-built keymaps (keyboard shortcuts), registers, and even the basics of find-and-replace patterns. My productivity doubled. After that point, I switched my development environment to vi and, eventually, Vim.</p>
-
-              <p>Once you use vi/Vim for writing code, the mouse feels like a burden. Vim is an improved version of vi, and its community exploded thanks to its plugin ecosystem. Pretty much anything you can imagine has a plugin—syntax highlighting, color themes, powerline status bars, fuzzy search, file navigation, and more. Once you reach this stage, you curate a core set of plugins that keeps your productivity at its peak. Recently, I moved to <code>Neovim</code> for its Lua-based plugin support, and paired it with <code>Alacritty</code> to accelerate terminal performance. The combination is pure joy.</p>
-
-              <p>Looking back, learning Vim wasn’t just about editing files faster—it taught me the value of mastering tools deeply. What started with typewriter clacks turned into a philosophy of working with precision and flow.</p>
-
-              <p>
-                If you're curious about my Neovim setup, check out my GitHub repo:
-                <a href="https://github.com/vasuadari/run_controls/tree/master/.config/nvim" target="_blank" rel="noopener noreferrer">
-                  run_controls
-                </a>
-              </p>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command">vim the-gravity-of-vim-how-i-escaped-the-mouse.md</span>
+        </div>
+        <div class="terminal-output blog-article">
+            <div class="vim-header">
+                <div class="vim-status-line">
+                    <span class="vim-filename">~/blogs/the-gravity-of-vim-how-i-escaped-the-mouse.md</span>
+                    <span class="vim-reading-time" id="reading-time-display">6 min read</span>
+                </div>
             </div>
-          
+
+            <div class="vim-content" id="blog-article-content">
+                <h1 class="vim-title"># The Gravity of Vim: How I Escaped the Mouse</h1>
+                <p>I first learned typing in a typewriter class. I loved the sharp, rhythmic noise the keys made, and even the silly mistakes felt like part of the journey. My goal was simple: increase speed while making fewer errors. Back then, I saw it as the first step toward using a computer.</p>
+
+                <p>When I joined my first job, I noticed some engineers typing effortlessly without looking at their keyboards, flying across black terminals. That immediately became my next obsession. Later, I learned it had a name—<code>touch typing</code>—and I've believed ever since that it's a must-have skill that should be taught in schools. It's one of the simplest ways to boost productivity. I've always been a fan of keyboard shortcuts; there's something magical about pressing a few keys and watching things happen instantly.</p>
+
+                <p>The terminal was the next thing that caught my attention. Every engineer eventually has to manage servers, so I started learning Linux from scratch. Linux is a file-based system, and to get around you inevitably need to know the basics of the <code>vi editor</code>. The first time I opened vi, I had to google how to exit. Coming from a GUI world, navigating files in vi felt like a struggle.</p>
+
+                <p>At first, I only knew about <em>insert</em> and <em>normal</em> mode, and I relied heavily on the ↑ ↓ ← → arrow keys to move around. I probably survived that way for six months to a year. But as I began managing more servers, relying on just the arrows became frustrating. That's when I dug deeper into vi. Back then, documentation was a bit fragmented, but one great thing about vi is that it ships with its own tutorial—you just need to follow it. The very first lesson I learned: <code>don't use arrow keys, use h, j, k, and l.</code></p>
+
+                <p>By then my typing had improved, but I found the key repeat on macOS painfully slow. An engineer showed me how to tweak the setting, and it felt like bliss. From there, things clicked. I discovered in-built keymaps (keyboard shortcuts), registers, and even the basics of find-and-replace patterns. My productivity doubled. After that point, I switched my development environment to vi and, eventually, Vim.</p>
+
+                <p>Once you use vi/Vim for writing code, the mouse feels like a burden. Vim is an improved version of vi, and its community exploded thanks to its plugin ecosystem. Pretty much anything you can imagine has a plugin—syntax highlighting, color themes, powerline status bars, fuzzy search, file navigation, and more. Once you reach this stage, you curate a core set of plugins that keeps your productivity at its peak. Recently, I moved to <code>Neovim</code> for its Lua-based plugin support, and paired it with <code>Alacritty</code> to accelerate terminal performance. The combination is pure joy.</p>
+
+                <p>Looking back, learning Vim wasn't just about editing files faster—it taught me the value of mastering tools deeply. What started with typewriter clacks turned into a philosophy of working with precision and flow.</p>
+
+                <p>If you're curious about my Neovim setup, check out my GitHub repo: <a href="https://github.com/vasuadari/run_controls/tree/master/.config/nvim" target="_blank" rel="noopener noreferrer">run_controls</a></p>
+            </div>
+
             <footer class="blog-post-footer">
               <p class="labels">Labels:
                 <a href="#">Vim</a>,
@@ -77,5 +65,15 @@
             }
         });
     </script>
+
+    <div class="terminal-line">
+        <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+        <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+    </div>
+    <div class="terminal-line">
+        <span class="terminal-prompt">vasu@adari:~$</span>
+        <span class="terminal-cursor">_</span>
+    </div>
+    </div>
 </body>
 </html>
