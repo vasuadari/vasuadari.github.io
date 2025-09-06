@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Building Flume: An Elixir Job Processing System - Vasu Adari</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command">vim building-flume-elixir-job-processing-system.md</span>
+        </div>
+        <div class="terminal-output blog-article">
+            <div class="vim-header">
+                <div class="vim-status-line">
+                    <span class="vim-filename">~/blogs/building-flume-elixir-job-processing-system.md</span>
+                    <span class="vim-reading-time" id="reading-time-display">10 min read</span>
+                </div>
+            </div>
+
+            <div class="vim-content" id="blog-article-content">
+                <h1 class="vim-title"># Building Flume: An Elixir Job Processing System</h1>
+                <p>At Scripbox, we're in the midst of an exciting architectural transition. As we build new services, we're embracing Elixir for its fault-tolerance and concurrency capabilities. However, this transition brings new challenges—particularly around background job processing.</p>
+
+                <p>Coming from a Ruby ecosystem where Sidekiq handles our background jobs beautifully, we need something equally robust for our Elixir services. That's how Flume was born—our answer to distributed job processing in the Elixir world.</p>
+
+                <h3>## The Challenge: Email at Scale</h3>
+
+                <p>Our first real test case is email delivery. We're using AWS SES, which allows up to 450 API calls per second for sending emails. This sounds straightforward, but managing this rate limit while ensuring reliable delivery is more complex than it initially appears.</p>
+
+                <p>We need a system that can:</p>
+                <p>• <strong>Rate limit</strong> our requests to stay within AWS SES limits</p>
+                <p>• Handle <strong>back pressure</strong> when downstream systems are overwhelmed</p>
+                <p>• <strong>Batch</strong> jobs efficiently as our use cases expand</p>
+                <p>• Provide <strong>reliability</strong> and fault tolerance</p>
+
+                <h3>## Why Not Just Use Existing Solutions?</h3>
+
+                <p>The Elixir ecosystem has several job processing libraries, but none quite fit our specific needs. We need fine-grained rate limiting, sophisticated back pressure handling, and the flexibility to batch jobs dynamically. Most importantly, we want something that leverages Elixir's strengths—particularly GenStage for flow control.</p>
+
+                <p>Taking inspiration from Sidekiq's elegant design, we're building Flume to be the Elixir equivalent, but with features tailored to our distributed, high-throughput environment.</p>
+
+                <h3>## Architecture: GenStage + Redis</h3>
+
+                <p>Flume's architecture centers around two key technologies:</p>
+
+                <p><strong>GenStage</strong> provides the foundation for our processing pipeline. It gives us built-in back pressure handling—when consumers can't keep up with producers, the system automatically slows down job generation. This prevents memory bloat and ensures stable performance under varying loads.</p>
+
+                <p><strong>Redis</strong> serves as our job store and coordination layer. Jobs are persisted in Redis before processing, ensuring durability. Redis also powers our distributed rate limiting using sliding window counters.</p>
+
+                <p>The pipeline flows like this:</p>
+                <p>1. <strong>Producer</strong>: Pulls jobs from Redis queues</p>
+                <p>2. <strong>Rate Limiter</strong>: Controls job flow based on configured limits</p>
+                <p>3. <strong>Processor</strong>: Executes jobs with configurable concurrency</p>
+                <p>4. <strong>Batcher</strong>: Groups jobs for efficient bulk processing</p>
+
+                <h3>## Rate Limiting: The Foundation</h3>
+
+                <p>Our rate limiting implementation is crucial for the AWS SES integration. We're using a sliding window approach with Redis:</p>
+
+                <p>Each pipeline can have its own rate limit configuration. For our email service, we set it to 400 requests per second (leaving some headroom below the 450 limit). The rate limiter tracks requests across all nodes in our cluster, ensuring we never exceed limits even as we scale horizontally.</p>
+
+                <p>The beauty of integrating this with GenStage is that when we hit rate limits, back pressure naturally flows upstream, pausing job consumption until capacity becomes available again.</p>
+
+                <h3>## Back Pressure: Protecting Our Resources</h3>
+
+                <p>Back pressure is where Elixir and GenStage truly shine. When our email service can't process jobs fast enough—perhaps AWS SES is responding slowly—GenStage automatically reduces the flow of new jobs into our pipeline.</p>
+
+                <p>This prevents several problems we've seen in other systems:</p>
+                <p>• Memory exhaustion from queued jobs</p>
+                <p>• Cascading failures when downstream services slow down</p>
+                <p>• Lost jobs due to system overload</p>
+
+                <p>The system self-regulates, maintaining stability even when external services have performance issues.</p>
+
+                <h3>## Batching: Efficiency at Scale</h3>
+
+                <p>As our use cases expand beyond email to internal system integrations, batching becomes essential. Some operations are much more efficient when performed in groups—database inserts, API calls to external services, or file processing operations.</p>
+
+                <p>Flume's batching works by accumulating jobs until either:</p>
+                <p>• The batch size limit is reached</p>
+                <p>• A timeout expires</p>
+
+                <p>This gives us the best of both worlds: efficiency through batching, but low latency for time-sensitive jobs. Workers can process individual jobs or entire batches, depending on their implementation.</p>
+
+                <h3>## Durability and Fault Tolerance</h3>
+
+                <p>In a distributed system, failures are inevitable. Flume handles this through several mechanisms:</p>
+
+                <p><strong>Job Backup</strong>: Before processing, jobs are moved to a backup queue. If a worker crashes, jobs can be restored and retried.</p>
+
+                <p><strong>Exponential Backoff</strong>: Failed jobs are retried with increasing delays, preventing system overload from repeatedly failing operations.</p>
+
+                <p><strong>Dead Letter Queues</strong>: Jobs that fail repeatedly are moved to dead letter queues for manual inspection.</p>
+
+                <h3>## Real-World Performance</h3>
+
+                <p>Our email pipeline is now processing thousands of jobs per hour while maintaining strict rate limits. The system automatically adapts to varying loads—during high email volume periods, back pressure keeps everything stable.</p>
+
+                <p>What's particularly impressive is the observability. Through Telemetry events, we can see exactly how the system behaves:</p>
+                <p>• Queue depths and processing rates</p>
+                <p>• Rate limiting effectiveness</p>
+                <p>• Back pressure events and their resolution</p>
+
+                <h3>## Configuration and Usage</h3>
+
+                <p>Flume is designed to be simple to use despite its sophisticated internals. Configuration happens in <code>config/flume.exs</code>:</p>
+
+                <p>```elixir<br>
+                config :flume,<br>
+                &nbsp;&nbsp;pipelines: [<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;email_service: [<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;producer: [redis_url: "redis://localhost:6379"],<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rate_limiter: [allowed: 400, period: 1000],<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processor: [stages: 5]<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+                &nbsp;&nbsp;]<br>
+                ```</p>
+
+                <p>Enqueueing jobs is straightforward:</p>
+
+                <p>```elixir<br>
+                Flume.enqueue(:email_service, EmailWorker, [user_id, template])<br>
+                ```</p>
+
+                <h3>## Lessons Learned</h3>
+
+                <p>Building Flume is teaching us valuable lessons about distributed systems and Elixir's capabilities:</p>
+
+                <p><strong>GenStage's Power</strong>: The built-in back pressure handling eliminates entire classes of problems we've dealt with in other systems.</p>
+
+                <p><strong>Redis as Coordination Layer</strong>: Using Redis for both job storage and rate limiting creates a simple, effective distributed coordination mechanism.</p>
+
+                <p><strong>Observability from Day One</strong>: Instrumenting with Telemetry from the beginning gives us insights into system behavior that would be hard to add later.</p>
+
+                <p><strong>Gradual Feature Addition</strong>: Starting with rate limiting, then adding back pressure, and finally batching allowed us to validate each feature before adding complexity.</p>
+
+                <h3>## Looking Forward</h3>
+
+                <p>Flume is evolving with our needs. We're exploring features like job prioritization, more sophisticated scheduling, and improved monitoring. The modular architecture makes these additions straightforward.</p>
+
+                <p>Most importantly, Flume is proving that Elixir's concurrency model isn't just great for web applications—it's excellent for building robust, scalable infrastructure systems too.</p>
+
+                <p>As we continue our transition to Elixir-based services, Flume is becoming a crucial piece of our infrastructure puzzle, handling background processing with the reliability and performance our growing platform demands.</p>
+
+                <p>Check out the complete Flume implementation: <a href="https://github.com/scripbox/flume" target="_blank" rel="noopener noreferrer">Flume on GitHub</a></p>
+            </div>
+
+            <footer class="blog-post-footer">
+              <p class="labels">Labels:
+                <a href="#">Elixir</a>,
+                <a href="#">GenStage</a>,
+                <a href="#">Job Processing</a>,
+                <a href="#">Distributed Systems</a>,
+                <a href="#">Rate Limiting</a>
+              </p>
+            </footer>
+        </div>
+
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-cursor">_</span>
+        </div>
+    </div>
+
+    <script src="blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readingTime = calculateReadingTime('blog-article-content');
+            const readingTimeDisplay = document.getElementById('reading-time-display');
+            if (readingTimeDisplay) {
+                readingTimeDisplay.textContent = readingTime;
+            }
+        });
+    </script>
+</body>
+</html>
