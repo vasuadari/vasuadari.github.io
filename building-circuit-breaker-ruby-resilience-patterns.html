@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Building a Circuit Breaker in Ruby: Resilience Patterns - Vasu Adari</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command">vim building-circuit-breaker-ruby-resilience-patterns.md</span>
+        </div>
+        <div class="terminal-output blog-article">
+            <div class="vim-header">
+                <div class="vim-status-line">
+                    <span class="vim-filename">~/blogs/building-circuit-breaker-ruby-resilience-patterns.md</span>
+                    <span class="vim-reading-time" id="reading-time-display">8 min read</span>
+                </div>
+            </div>
+
+            <div class="vim-content" id="blog-article-content">
+                <h1 class="vim-title"># Building a Circuit Breaker in Ruby: Resilience Patterns</h1>
+                <p>At Scripbox, we're constantly working with external APIs—payment gateways, KYC services, market data providers, and various financial services. While these integrations power our platform, they also introduce a critical challenge: what happens when these external services slow down or fail?</p>
+
+                <p>This is where the circuit breaker pattern becomes essential. Just like electrical circuit breakers protect homes from power surges, software circuit breakers protect our applications from cascading failures when dependencies become unreliable.</p>
+
+                <h3>## The Problem: Cascading Failures</h3>
+
+                <p>Picture this scenario: Our KYC verification service normally responds in 200ms, but suddenly starts taking 30 seconds per request due to issues on their end. Without protection, our threads get blocked waiting for these slow responses. As more requests pile up, our application server runs out of available threads, and suddenly our entire platform becomes unresponsive.</p>
+
+                <p>This cascading failure pattern is all too common in distributed systems. A single slow dependency can bring down an entire application, affecting users who aren't even using the problematic feature.</p>
+
+                <h3>## Enter the Circuit Breaker Pattern</h3>
+
+                <p>Martin Fowler's circuit breaker pattern offers an elegant solution. The concept is simple: monitor calls to external services, and when failures reach a threshold, "open" the circuit to prevent further calls. After a cooling-off period, allow a few test calls to see if the service has recovered.</p>
+
+                <p>The circuit breaker has three states:</p>
+                <p>• <strong>Closed</strong>: Normal operation, calls pass through</p>
+                <p>• <strong>Open</strong>: Circuit is tripped, calls fail fast</p>
+                <p>• <strong>Half-Open</strong>: Testing if the service has recovered</p>
+
+                <h3>## Why Build Our Own?</h3>
+
+                <p>While several circuit breaker libraries exist for Ruby, we need something that fits our specific requirements:</p>
+
+                <p><strong>Simplicity</strong>: We want a lightweight library that doesn't add unnecessary complexity to our codebase.</p>
+
+                <p><strong>Flexibility</strong>: Different services have different characteristics. Our payment gateway might need different thresholds than our market data API.</p>
+
+                <p><strong>Fine-grained Control</strong>: We need configurable failure thresholds, timeout values, and retry intervals that match our specific use cases.</p>
+
+                <p><strong>Transparency</strong>: Clear state transitions and behavior that we can easily debug and monitor.</p>
+
+                <h3>## Designing Our Circuit Breaker</h3>
+
+                <p>Our implementation centers around a <code>CircuitBreaker::Shield</code> class that wraps potentially unreliable operations. The design focuses on four key configuration parameters:</p>
+
+                <p><strong>Invocation Timeout</strong>: How long to wait for an operation before considering it failed. For our KYC service, we set this to 5 seconds.</p>
+
+                <p><strong>Failure Threshold</strong>: The absolute number of failures that will trip the circuit. We typically set this to 5 for critical services.</p>
+
+                <p><strong>Failure Threshold Percentage</strong>: The percentage of failed calls that will trip the circuit. This prevents the circuit from opening due to a few failures during high-volume periods.</p>
+
+                <p><strong>Retry Timeout</strong>: How long to wait before testing if a failed service has recovered. We usually start with 30 seconds and adjust based on the service's typical recovery time.</p>
+
+                <h3>## Implementation Details</h3>
+
+                <p>The core of our circuit breaker is elegant in its simplicity:</p>
+
+                <p>```ruby<br>
+                circuit_breaker = CircuitBreaker::Shield.new(<br>
+                &nbsp;&nbsp;invocation_timeout: 5,<br>
+                &nbsp;&nbsp;failure_threshold: 5,<br>
+                &nbsp;&nbsp;failure_threshold_percentage: 0.3,<br>
+                &nbsp;&nbsp;retry_timeout: 30<br>
+                )<br>
+                <br>
+                result = circuit_breaker.protect do<br>
+                &nbsp;&nbsp;KycService.verify_user(user_id)<br>
+                end<br>
+                ```</p>
+
+                <p>When the circuit is closed, operations execute normally. The circuit breaker tracks success and failure rates, watching for patterns that indicate the service is struggling.</p>
+
+                <p>Once failure thresholds are exceeded, the circuit opens. Subsequent calls fail fast without even attempting to contact the service. This immediate failure prevents our threads from being tied up waiting for responses that likely won't come.</p>
+
+                <p>After the retry timeout period, the circuit moves to half-open state. A single test call is allowed through. If it succeeds, the circuit closes and normal operation resumes. If it fails, the circuit opens again for another retry period.</p>
+
+                <h3>## Real-World Usage Patterns</h3>
+
+                <p>We're using circuit breakers throughout our platform, each configured for its specific use case:</p>
+
+                <p><strong>Payment Processing</strong>: Short timeout (2 seconds) with a low failure threshold. When payment gateways are slow, we need to fail fast to avoid user frustration.</p>
+
+                <p><strong>Market Data</strong>: Longer timeout (10 seconds) with higher failure threshold. Market data can tolerate some delays, and we want to avoid opening the circuit for temporary slowdowns.</p>
+
+                <p><strong>KYC Services</strong>: Medium timeout (5 seconds) with percentage-based thresholds. KYC typically has predictable response times, so we focus on percentage of failures rather than absolute numbers.</p>
+
+                <h3>## Monitoring and Observability</h3>
+
+                <p>Circuit breakers are only as good as your ability to monitor them. We've integrated logging at key transition points:</p>
+
+                <p>• When circuits open (indicating service degradation)</p>
+                <p>• When circuits close (indicating service recovery)</p>
+                <p>• Failure rate patterns that approach thresholds</p>
+
+                <p>This visibility helps us identify service issues before they affect users and fine-tune our thresholds based on real-world behavior.</p>
+
+                <h3>## Handling Circuit Breaker States</h3>
+
+                <p>Different circuit states require different application responses:</p>
+
+                <p><strong>Circuit Closed</strong>: Business as usual. Operations proceed normally with full functionality.</p>
+
+                <p><strong>Circuit Open</strong>: Graceful degradation. We show cached data, disable non-critical features, or provide alternative user flows.</p>
+
+                <p><strong>Circuit Half-Open</strong>: Cautious operation. We might show loading states or temporary messages while testing service recovery.</p>
+
+                <h3>## Performance Impact</h3>
+
+                <p>One concern with circuit breakers is the performance overhead of tracking calls and managing state. Our implementation is lightweight—the overhead is negligible compared to the network calls we're protecting.</p>
+
+                <p>More importantly, when circuits are open, we're saving significant resources by not making calls that would likely timeout anyway. The performance benefit during service degradation far outweighs any minimal overhead during normal operation.</p>
+
+                <h3>## Lessons Learned</h3>
+
+                <p>Building and deploying our circuit breaker library is teaching us valuable lessons about resilient system design:</p>
+
+                <p><strong>Thresholds Matter</strong>: Setting the right failure thresholds requires understanding your services' normal behavior patterns. Too sensitive, and you get false positives. Too lenient, and you don't get protection when you need it.</p>
+
+                <p><strong>Recovery Time Varies</strong>: Different services have different recovery characteristics. Database issues might resolve in seconds, while third-party API issues could take minutes.</p>
+
+                <p><strong>User Experience</strong>: Circuit breakers are most effective when paired with good fallback strategies. Failing fast is only valuable if you have something meaningful to show users.</p>
+
+                <p><strong>Testing is Crucial</strong>: We're learning to test circuit breaker behavior under various failure scenarios. It's not enough to test normal operation—you need to verify behavior when things go wrong.</p>
+
+                <h3>## Looking Forward</h3>
+
+                <p>Our circuit breaker library is proving its value in production. We're seeing faster recovery from service issues and better overall system stability.</p>
+
+                <p>Future enhancements we're considering include:</p>
+                <p>• Integration with our monitoring systems for automatic alerting</p>
+                <p>• More sophisticated failure detection beyond simple timeouts</p>
+                <p>• Metrics collection for better threshold tuning</p>
+                <p>• Support for bulkhead patterns to isolate different types of failures</p>
+
+                <h3>## Building Resilient Systems</h3>
+
+                <p>Circuit breakers are just one part of building resilient distributed systems, but they're a crucial part. By failing fast when dependencies are unreliable, we protect our core platform functionality and maintain a better user experience even when external services struggle.</p>
+
+                <p>The key insight is that in distributed systems, failures are inevitable. The goal isn't to eliminate failures—it's to contain them and recover gracefully. Our circuit breaker library is helping us do exactly that.</p>
+
+                <p>Check out the complete implementation: <a href="https://github.com/scripbox/circuit_breaker-ruby" target="_blank" rel="noopener noreferrer">circuit_breaker-ruby on GitHub</a></p>
+            </div>
+
+            <footer class="blog-post-footer">
+              <p class="labels">Labels:
+                <a href="#">Ruby</a>,
+                <a href="#">Circuit Breaker</a>,
+                <a href="#">Resilience</a>,
+                <a href="#">Distributed Systems</a>,
+                <a href="#">Fault Tolerance</a>
+              </p>
+            </footer>
+        </div>
+
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-cursor">_</span>
+        </div>
+    </div>
+
+    <script src="blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readingTime = calculateReadingTime('blog-article-content');
+            const readingTimeDisplay = document.getElementById('reading-time-display');
+            if (readingTimeDisplay) {
+                readingTimeDisplay.textContent = readingTime;
+            }
+        });
+    </script>
+</body>
+</html>
