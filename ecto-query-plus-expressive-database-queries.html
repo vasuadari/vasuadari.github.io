@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>EctoQueryPlus: Making Database Queries More Expressive - Vasu Adari</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-session">
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command">vim ecto-query-plus-expressive-database-queries.md</span>
+        </div>
+        <div class="terminal-output blog-article">
+            <div class="vim-header">
+                <div class="vim-status-line">
+                    <span class="vim-filename">~/blogs/ecto-query-plus-expressive-database-queries.md</span>
+                    <span class="vim-reading-time" id="reading-time-display">7 min read</span>
+                </div>
+            </div>
+
+            <div class="vim-content" id="blog-article-content">
+                <h1 class="vim-title"># EctoQueryPlus: Making Database Queries More Expressive</h1>
+                <p>Working with Elixir and Ecto for several years now, I keep running into the same patterns when building dynamic queries. API endpoints that need optional filtering, search functionality that should gracefully handle empty parameters, and pagination that works consistently across different contexts.</p>
+
+                <p>While Ecto's query DSL is powerful, I find myself writing repetitive conditional logic to handle these common scenarios. That's what led me to create EctoQueryPlus—a small library that makes these patterns more expressive and reduces boilerplate.</p>
+
+                <h3>## The Problem: Conditional Query Logic</h3>
+
+                <p>Consider a typical user search endpoint. Users might want to filter by name, email, status, or any combination of these. The naive approach leads to deeply nested conditional logic:</p>
+
+                <pre><code class="language-elixir">query = from(u in User)
+
+query = if params[:name] do
+  where(query, [u], ilike(u.name, ^"%#{params[:name]}%"))
+else
+  query
+end
+
+query = if params[:email] do
+  where(query, [u], u.email == ^params[:email])
+else
+  query
+end
+
+query = if params[:active] != nil do
+  where(query, [u], u.active == ^params[:active])
+else
+  query
+end</code></pre>
+
+                <p>This pattern is verbose, repetitive, and error-prone. Each conditional follows the same structure, but we're writing it out every time. As queries become more complex, this approach becomes unwieldy.</p>
+
+                <h3>## A More Expressive Approach</h3>
+
+                <p>What I want is a way to express conditional queries more naturally. The same logic should read like this:</p>
+
+                <pre><code class="language-elixir">import EctoQueryPlus
+
+User
+|> wherep(name: params[:name])
+|> wherep(email: params[:email])
+|> wherep(active: params[:active])</code></pre>
+
+                <p>The <code>wherep/2</code> function is the core of EctoQueryPlus. It takes a query and a keyword list or list of tuples, applying conditions only when values are present (not nil). This eliminates the repetitive if-else pattern while maintaining the same functionality.</p>
+
+                <h3>## Beyond Simple Conditionals</h3>
+
+                <p>Real-world queries often need more sophisticated conditional logic. Sometimes we want to apply different transformations based on the type or value of parameters. EctoQueryPlus provides several helpers for these scenarios.</p>
+
+                <p><strong>Filter By with Operators</strong></p>
+
+                <p>You can also use list syntax with operators for more complex filtering:</p>
+
+                <pre><code class="language-elixir">User
+|> wherep([{:name, :ilike, params[:name]}])
+|> wherep([{:age, :gte, params[:min_age]}])
+|> wherep([{:created_at, :gte, params[:since]}])</code></pre>
+
+                <p>This is much cleaner than writing out each conditional with its specific operator logic.</p>
+
+                <p><strong>Dynamic Ordering</strong></p>
+
+                <p>Sorting is another area where conditional logic gets messy. EctoQueryPlus provides the <code>order_byp/2</code> function for conditional ordering:</p>
+
+                <pre><code class="language-elixir">User
+|> order_byp([{params[:sort_by] || :name, params[:sort_direction] || :asc}])</code></pre>
+
+                <p>If sort parameters are provided, they're used. Otherwise, it defaults to sorting by name. This handles the common pattern of optional sorting with fallbacks.</p>
+
+                <h3>## Pagination Made Simple</h3>
+
+                <p>Pagination is another repetitive pattern. EctoQueryPlus provides <code>offsetp/2</code> and <code>limitp/2</code> functions to handle this cleanly:</p>
+
+                <pre><code class="language-elixir">User
+|> wherep(name: params[:name])
+|> order_byp([{params[:sort_by] || :name, params[:sort_direction] || :asc}])
+|> offsetp(params[:offset])
+|> limitp(params[:limit])</code></pre>
+
+                <p>The <code>offsetp/2</code> and <code>limitp/2</code> functions handle nil inputs gracefully, only applying pagination when values are present.</p>
+
+                <h3>## Composability and Pipeline Thinking</h3>
+
+                <p>What I love about this approach is how naturally it fits into Elixir's pipeline style. Query building becomes a series of transformations, each adding a piece of functionality:</p>
+
+                <pre><code class="language-elixir">defmodule MyApp.Users do
+  import EctoQueryPlus
+  
+  def search_users(params) do
+    User
+    |> wherep([
+      {:name, :ilike, params[:name]},
+      {:email, params[:email]},
+      {:department_id, params[:department_id]},
+      {:active, params[:active]},
+      {:created_at, :gte, params[:created_after]},
+      {:created_at, :lte, params[:created_before]}
+    ])
+    |> order_byp([{params[:sort_by] || :name, params[:sort_direction] || :asc}])
+    |> offsetp(params[:offset])
+    |> limitp(params[:limit])
+    |> Repo.all()
+  end
+end</code></pre>
+
+                <p>Each line is clear about what it's doing. The query reads like a description of the filtering logic rather than a complex conditional structure.</p>
+
+                <h3>## Handling Edge Cases</h3>
+
+                <p>One of the benefits of centralizing these patterns is consistent edge case handling. The library deals with common issues that crop up in dynamic queries:</p>
+
+                <p><strong>Nil vs Empty String</strong>: API parameters often come as empty strings rather than nil. EctoQueryPlus treats empty strings as nil for conditional logic.</p>
+
+                <p><strong>Type Coercion</strong>: Pagination parameters from URLs are strings, but need to be integers. The library handles this conversion with sensible fallbacks.</p>
+
+                <p><strong>Invalid Values</strong>: Page numbers below 1, negative per_page values, and other invalid inputs are normalized to reasonable defaults.</p>
+
+                <h3>## The Power of the `list/2` Function</h3>
+
+                <p>While individual functions like <code>wherep/2</code> and <code>order_byp/2</code> are useful, I quickly realized they can feel cumbersome for complex queries. The real power of EctoQueryPlus comes from implementing a base query module that provides the <code>list/2</code> function, which can be reused everywhere:</p>
+
+                <pre><code class="language-elixir">defmodule MyApp.Query do
+  use EctoQueryPlus
+end</code></pre>
+
+                <p>Now I can use the much more elegant <code>list/2</code> syntax:</p>
+
+                <pre><code class="language-elixir">User
+|> MyApp.Query.list(
+  [
+    {:name, :not_nil},
+    {:email, ["foo@example.com", "bar@example.com"]},
+    {:last_login_at, :gt, DateTime.utc_now()},
+    {:locked_at, nil}
+  ],
+  %{
+    select: [:id, :name, :email],
+    order_by: {:last_login_at, :asc},
+    limit: 5,
+    offset: 10
+  }
+)</code></pre>
+
+                <p>This single call handles multiple filtering conditions, selection, ordering, and pagination in a declarative way.</p>
+
+                <h3>## Coexistence with Standard Ecto</h3>
+
+                <p>One of the best aspects of EctoQueryPlus is that it plays nicely with standard Ecto functions. You can mix and match based on your needs:</p>
+
+                <pre><code class="language-elixir">User
+|> MyApp.Query.list([{:active, true}], %{select: [:id, :name]})
+|> join(:left, [u], p in assoc(u, :profile))
+|> where([u, p], not is_nil(p.avatar))
+|> preload([:profile, :posts])
+|> Repo.all()</code></pre>
+
+                <p>Here I'm using EctoQueryPlus for the initial filtering and selection, then standard Ecto for joins, additional where clauses, and preloading. This flexibility means I can adopt the library incrementally without rewriting existing queries.</p>
+
+                <h3>## Performance Considerations</h3>
+
+                <p>Since EctoQueryPlus works at the query building level (before database execution), there's no runtime performance impact. The conditionals are resolved when building the query, not when executing it.</p>
+
+                <p>The library generates the same SQL as manually written conditional logic would. It's purely a developer experience improvement—making code more readable and maintainable without affecting database performance.</p>
+
+                <h3>## A Complete Example</h3>
+
+                <p>Let me put it all together with a complete example function that we can then test:</p>
+
+                <pre><code class="language-elixir">defmodule MyApp.Users do
+  def search_users(params) do
+    User
+    |> MyApp.Query.list(
+      [
+        {:name, :ilike, params[:name]},
+        {:email, params[:email]},
+        {:active, params[:active]},
+        {:age, :gte, params[:min_age]}
+      ],
+      %{
+        order_by: {params[:sort_by] || :name, params[:sort_direction] || :asc},
+        offset: params[:offset],
+        limit: params[:limit]
+      }
+    )
+    |> Repo.all()
+  end
+end</code></pre>
+
+                <p>This function handles all the conditional logic automatically. If `params[:name]` is nil, that condition is ignored. If `params[:active]` is present, it's applied. The beauty is in the simplicity.</p>
+
+                <h3>## Testing Dynamic Queries</h3>
+
+                <p>Now that we have our `search_users/1` function, testing becomes straightforward. Since EctoQueryPlus handles nil values automatically, I can focus on testing the actual business logic rather than conditional query building:</p>
+
+                <pre><code class="language-elixir">test "search_users returns filtered results" do
+  active_user = insert(:user, active: true, name: "John")
+  inactive_user = insert(:user, active: false, name: "Jane")
+  
+  results = MyApp.Users.search_users(%{active: true})
+  
+  assert length(results) == 1
+  assert hd(results).id == active_user.id
+end
+
+test "search_users handles empty params gracefully" do
+  user = insert(:user)
+  
+  results = MyApp.Users.search_users(%{})
+  
+  assert length(results) == 1
+end</code></pre>
+
+                <p>The testing becomes more focused on verifying the actual results rather than testing query construction logic.</p>
+
+                <h3>## Looking Forward</h3>
+
+                <p>EctoQueryPlus is solving real problems in my daily development work. Future enhancements I'm considering include:</p>
+
+                <p>• More sophisticated filtering operators (in, between, regex matching)</p>
+                <p>• Integration with Phoenix params casting for better type handling</p>
+                <p>• Helpers for common aggregate query patterns</p>
+                <p>• Support for more complex dynamic joins</p>
+
+                <h3>## Building Better Abstractions</h3>
+
+                <p>The goal with EctoQueryPlus isn't to replace Ecto's query DSL—it's to build on top of it. By identifying common patterns and extracting them into reusable helpers, we can write more expressive code while maintaining all of Ecto's power and flexibility.</p>
+
+                <p>Sometimes the best libraries are the ones that make common tasks feel natural rather than trying to solve complex problems. EctoQueryPlus is my attempt to make conditional querying feel as natural as Elixir's pipeline operator.</p>
+
+                <p>Check out the complete implementation and examples: <a href="https://github.com/vasuadari/ecto_query_plus" target="_blank" rel="noopener noreferrer">EctoQueryPlus on GitHub</a></p>
+            </div>
+
+            <footer class="blog-post-footer">
+              <p class="labels">Labels:
+                <a href="#">Elixir</a>,
+                <a href="#">Ecto</a>,
+                <a href="#">Database</a>,
+                <a href="#">Query Building</a>,
+                <a href="#">API Development</a>
+              </p>
+            </footer>
+        </div>
+
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
+            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
+        </div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">vasu@adari:~$</span>
+            <span class="terminal-cursor">_</span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const readingTime = calculateReadingTime('blog-article-content');
+            const readingTimeDisplay = document.getElementById('reading-time-display');
+            if (readingTimeDisplay) {
+                readingTimeDisplay.textContent = readingTime;
+            }
+        });
+    </script>
+</body>
+</html>
