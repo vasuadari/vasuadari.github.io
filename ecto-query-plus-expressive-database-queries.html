@@ -3,35 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EctoQueryPlus: A library for building expressive database queries in Elixir. Learn about conditional query building, pagination patterns, and reducing boilerplate in Ecto applications.">
+    <meta name="keywords" content="Elixir, Ecto, Database, Query Building, API Development, Conditional Queries, Pagination, Elixir Libraries">
+    <meta name="author" content="Vasu Adari">
+    <meta name="robots" content="index, follow">
+    <meta name="article:published_time" content="2024-12-01T12:00:00+00:00">
+    <meta name="article:author" content="Vasu Adari">
+    <meta name="article:tag" content="Elixir, Ecto, Database, Query Building, API Development">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://vasuadari.in/ecto-query-plus-expressive-database-queries.html">
+    <meta property="og:title" content="EctoQueryPlus: Making Database Queries More Expressive">
+    <meta property="og:description" content="EctoQueryPlus: A library for building expressive database queries in Elixir. Learn about conditional query building, pagination patterns, and reducing boilerplate in Ecto applications.">
+    <meta property="og:site_name" content="Vasu Adari">
+    <meta property="article:author" content="Vasu Adari">
+    <meta property="article:published_time" content="2024-12-01T12:00:00+00:00">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vasuadari.in/ecto-query-plus-expressive-database-queries.html">
+    <meta property="twitter:title" content="EctoQueryPlus: Making Database Queries More Expressive">
+    <meta property="twitter:description" content="EctoQueryPlus: A library for building expressive database queries in Elixir. Learn about conditional query building, pagination patterns, and reducing boilerplate in Ecto applications.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vasuadari.in/ecto-query-plus-expressive-database-queries.html">
+    
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <title>EctoQueryPlus: Making Database Queries More Expressive - Vasu Adari</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="terminal-session">
-        <div class="terminal-line">
-            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
-            <span class="terminal-command">vim ecto-query-plus-expressive-database-queries.md</span>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">Vasu Adari</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="about-me.html">About</a></li>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="docs/VasuAdariResume.pdf" target="_blank">Resume</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="terminal-output blog-article">
-            <div class="vim-header">
-                <div class="vim-status-line">
-                    <span class="vim-filename">~/blogs/ecto-query-plus-expressive-database-queries.md</span>
-                    <span class="vim-reading-time" id="reading-time-display">7 min read</span>
-                </div>
-            </div>
+    </header>
 
-            <div class="vim-content" id="blog-article-content">
-                <h1 class="vim-title"># EctoQueryPlus: Making Database Queries More Expressive</h1>
+    <main class="article-content">
+        <article>
+            <header class="article-header">
+                <h1>EctoQueryPlus: Making Database Queries More Expressive</h1>
+                <div class="article-meta">
+                    <span>December 1, 2024</span> • <span>7 min read</span>
+                </div>
+            </header>
+
+            <div class="article-body">
                 <p>Working with Elixir and Ecto for several years now, I keep running into the same patterns when building dynamic queries. API endpoints that need optional filtering, search functionality that should gracefully handle empty parameters, and pagination that works consistently across different contexts.</p>
 
                 <p>While Ecto's query DSL is powerful, I find myself writing repetitive conditional logic to handle these common scenarios. That's what led me to create EctoQueryPlus—a small library that makes these patterns more expressive and reduces boilerplate.</p>
 
-                <h3>## The Problem: Conditional Query Logic</h3>
+                <h3>The Problem: Conditional Query Logic</h3>
 
                 <p>Consider a typical user search endpoint. Users might want to filter by name, email, status, or any combination of these. The naive approach leads to deeply nested conditional logic:</p>
 
@@ -57,7 +87,7 @@ end</code></pre>
 
                 <p>This pattern is verbose, repetitive, and error-prone. Each conditional follows the same structure, but we're writing it out every time. As queries become more complex, this approach becomes unwieldy.</p>
 
-                <h3>## A More Expressive Approach</h3>
+                <h3>A More Expressive Approach</h3>
 
                 <p>What I want is a way to express conditional queries more naturally. The same logic should read like this:</p>
 
@@ -70,7 +100,7 @@ User
 
                 <p>The <code>wherep/2</code> function is the core of EctoQueryPlus. It takes a query and a keyword list or list of tuples, applying conditions only when values are present (not nil). This eliminates the repetitive if-else pattern while maintaining the same functionality.</p>
 
-                <h3>## Beyond Simple Conditionals</h3>
+                <h3>Beyond Simple Conditionals</h3>
 
                 <p>Real-world queries often need more sophisticated conditional logic. Sometimes we want to apply different transformations based on the type or value of parameters. EctoQueryPlus provides several helpers for these scenarios.</p>
 
@@ -94,7 +124,7 @@ User
 
                 <p>If sort parameters are provided, they're used. Otherwise, it defaults to sorting by name. This handles the common pattern of optional sorting with fallbacks.</p>
 
-                <h3>## Pagination Made Simple</h3>
+                <h3>Pagination Made Simple</h3>
 
                 <p>Pagination is another repetitive pattern. EctoQueryPlus provides <code>offsetp/2</code> and <code>limitp/2</code> functions to handle this cleanly:</p>
 
@@ -106,7 +136,7 @@ User
 
                 <p>The <code>offsetp/2</code> and <code>limitp/2</code> functions handle nil inputs gracefully, only applying pagination when values are present.</p>
 
-                <h3>## Composability and Pipeline Thinking</h3>
+                <h3>Composability and Pipeline Thinking</h3>
 
                 <p>What I love about this approach is how naturally it fits into Elixir's pipeline style. Query building becomes a series of transformations, each adding a piece of functionality:</p>
 
@@ -132,7 +162,7 @@ end</code></pre>
 
                 <p>Each line is clear about what it's doing. The query reads like a description of the filtering logic rather than a complex conditional structure.</p>
 
-                <h3>## Handling Edge Cases</h3>
+                <h3>Handling Edge Cases</h3>
 
                 <p>One of the benefits of centralizing these patterns is consistent edge case handling. The library deals with common issues that crop up in dynamic queries:</p>
 
@@ -142,7 +172,7 @@ end</code></pre>
 
                 <p><strong>Invalid Values</strong>: Page numbers below 1, negative per_page values, and other invalid inputs are normalized to reasonable defaults.</p>
 
-                <h3>## The Power of the `list/2` Function</h3>
+                <h3>The Power of the `list/2` Function</h3>
 
                 <p>While individual functions like <code>wherep/2</code> and <code>order_byp/2</code> are useful, I quickly realized they can feel cumbersome for complex queries. The real power of EctoQueryPlus comes from implementing a base query module that provides the <code>list/2</code> function, which can be reused everywhere:</p>
 
@@ -170,7 +200,7 @@ end</code></pre>
 
                 <p>This single call handles multiple filtering conditions, selection, ordering, and pagination in a declarative way.</p>
 
-                <h3>## Coexistence with Standard Ecto</h3>
+                <h3>Coexistence with Standard Ecto</h3>
 
                 <p>One of the best aspects of EctoQueryPlus is that it plays nicely with standard Ecto functions. You can mix and match based on your needs:</p>
 
@@ -183,13 +213,13 @@ end</code></pre>
 
                 <p>Here I'm using EctoQueryPlus for the initial filtering and selection, then standard Ecto for joins, additional where clauses, and preloading. This flexibility means I can adopt the library incrementally without rewriting existing queries.</p>
 
-                <h3>## Performance Considerations</h3>
+                <h3>Performance Considerations</h3>
 
                 <p>Since EctoQueryPlus works at the query building level (before database execution), there's no runtime performance impact. The conditionals are resolved when building the query, not when executing it.</p>
 
                 <p>The library generates the same SQL as manually written conditional logic would. It's purely a developer experience improvement—making code more readable and maintainable without affecting database performance.</p>
 
-                <h3>## A Complete Example</h3>
+                <h3>A Complete Example</h3>
 
                 <p>Let me put it all together with a complete example function that we can then test:</p>
 
@@ -215,7 +245,7 @@ end</code></pre>
 
                 <p>This function handles all the conditional logic automatically. If `params[:name]` is nil, that condition is ignored. If `params[:active]` is present, it's applied. The beauty is in the simplicity.</p>
 
-                <h3>## Testing Dynamic Queries</h3>
+                <h3>Testing Dynamic Queries</h3>
 
                 <p>Now that we have our `search_users/1` function, testing becomes straightforward. Since EctoQueryPlus handles nil values automatically, I can focus on testing the actual business logic rather than conditional query building:</p>
 
@@ -239,7 +269,7 @@ end</code></pre>
 
                 <p>The testing becomes more focused on verifying the actual results rather than testing query construction logic.</p>
 
-                <h3>## Looking Forward</h3>
+                <h3>Looking Forward</h3>
 
                 <p>EctoQueryPlus is solving real problems in my daily development work. Future enhancements I'm considering include:</p>
 
@@ -248,7 +278,7 @@ end</code></pre>
                 <p>• Helpers for common aggregate query patterns</p>
                 <p>• Support for more complex dynamic joins</p>
 
-                <h3>## Building Better Abstractions</h3>
+                <h3>Building Better Abstractions</h3>
 
                 <p>The goal with EctoQueryPlus isn't to replace Ecto's query DSL—it's to build on top of it. By identifying common patterns and extracting them into reusable helpers, we can write more expressive code while maintaining all of Ecto's power and flexibility.</p>
 
@@ -256,39 +286,11 @@ end</code></pre>
 
                 <p>Check out the complete implementation and examples: <a href="https://github.com/vasuadari/ecto_query_plus" target="_blank" rel="noopener noreferrer">EctoQueryPlus on GitHub</a></p>
             </div>
+        </article>
 
-            <footer class="blog-post-footer">
-              <p class="labels">Labels:
-                <a href="#">Elixir</a>,
-                <a href="#">Ecto</a>,
-                <a href="#">Database</a>,
-                <a href="#">Query Building</a>,
-                <a href="#">API Development</a>
-              </p>
-            </footer>
+        <div class="nav-links">
+            <a href="index.html">← Back to Home</a>
         </div>
-
-        <div class="terminal-line">
-            <span class="terminal-prompt">vasu@adari:~/blogs$</span>
-            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
-        </div>
-        <div class="terminal-line">
-            <span class="terminal-prompt">vasu@adari:~$</span>
-            <span class="terminal-cursor">_</span>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="blog.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const readingTime = calculateReadingTime('blog-article-content');
-            const readingTimeDisplay = document.getElementById('reading-time-display');
-            if (readingTimeDisplay) {
-                readingTimeDisplay.textContent = readingTime;
-            }
-        });
-    </script>
+    </main>
 </body>
 </html>

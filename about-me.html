@@ -3,150 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vasu Adari - Resume</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/terminal.css@0.1.1/dist/terminal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <meta name="description" content="Vasu Adari's professional resume and experience. 12+ years as Principal Engineer at Scripbox, Gojek Tech. Expert in Elixir, Ruby, DevOps, and scalable systems.">
+    <meta name="keywords" content="Vasu Adari Resume, Principal Engineer, Software Engineer Resume, Elixir Developer, Ruby Developer, DevOps Engineer, Scripbox, Gojek">
+    <meta name="author" content="Vasu Adari">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://vasuadari.in/about-me.html">
+    <meta property="og:title" content="Vasu Adari - Resume & Experience">
+    <meta property="og:description" content="Professional resume and experience. 12+ years as Principal Engineer at Scripbox, Gojek Tech. Expert in Elixir, Ruby, DevOps, and scalable systems.">
+    <meta property="og:site_name" content="Vasu Adari">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://vasuadari.in/about-me.html">
+    <meta property="twitter:title" content="Vasu Adari - Resume & Experience">
+    <meta property="twitter:description" content="Professional resume and experience. 12+ years as Principal Engineer at Scripbox, Gojek Tech. Expert in Elixir, Ruby, DevOps, and scalable systems.">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vasuadari.in/about-me.html">
+    
+    <title>Vasu Adari - Resume & Experience</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="terminal-session">
-        <div class="terminal-line">
-            <span class="terminal-prompt">vasu@adari:~/about-me$</span>
-            <span class="terminal-command">cat about-me.txt</span>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">Vasu Adari</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="about-me.html" class="active">About</a></li>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="docs/VasuAdariResume.pdf" target="_blank">Resume</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="terminal-output">
-            <div class="about-content">
-                <p><strong>Contact:</strong> <a href="mailto:vasuadari@icloud.com">vasuadari@icloud.com</a> | <a href="tel:+919940364805">+919940364805</a> | Bangalore, India</p>
-                <p><strong>Links:</strong> <a href="https://linkedin.com/in/vasuakeel" target="_blank">LinkedIn</a> | <a href="https://github.com/vasuadari" target="_blank">GitHub</a> | <a href="docs/VasuAdariResume.pdf" target="_blank">Resume</a></p>
+    </header>
 
-                <div class="section-divider">---</div>
+    <main class="about-content">
+        <section class="about-intro">
+            <h1>About Me</h1>
+            <p>Innovative Software Engineer with 12 Years of Experience in Building Scalable, High-Performance Applications Across Diverse Industries.</p>
+        </section>
 
-                <p><strong>Profile:</strong></p>
-                <p>Innovative Software Engineer with 12 Years of Experience in Building Scalable, High-Performance Applications Across Diverse Industries.</p>
-
-                <div class="section-divider">---</div>
-
-                <p><strong>Skills:</strong></p>
-                <div class="skills-section">
-                    <p><span class="skill-category">Engineering:</span> Elixir, Ruby, JavaScript, Elasticsearch, MySQL, Postgres, Kafka, Redis</p>
-                    <p><span class="skill-category">DevOps:</span> Docker, Kubernetes, Helm, Terraform, Ansible, GitLab, CI/CD, Git, AWS, GCP, Grafana, Graylog, NewRelic</p>
-                </div>
-
-                <div class="section-divider">---</div>
-
-                <p><strong>Experience:</strong></p>
-                <div class="experience-section">
-                    <div class="job-entry">
-                        <p><span class="company-name">Scripbox</span> | <span class="job-title">Principal Engineer</span></p>
-                        <p class="job-date">March 2022 - Present | Bengaluru, Karnataka, India</p>
-                        <ul>
-                            <li>Led the architectural design and implementation of a highly scalable Elixir application, replacing legacy systems during company mergers.</li>
-                            <li>Developed a master data application in Elixir with DAG-based workflow, including advanced search API features.</li>
-                            <li>Implemented OpenAPI Specification 3.0 standards, improving API documentation and maintainability across Elixir and Ruby applications.</li>
-                            <li>Established Architecture Decision Records (ADRs) as standard practice, fostering better decision-making and collaboration.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job-entry">
-                        <p><span class="company-name">Gojek Tech</span> | <span class="job-title">Lead Software Engineer</span></p>
-                        <p class="job-date">December 2020 - February 2022 | Bengaluru, Karnataka, India</p>
-                        <ul>
-                            <li>Revamped the code structure of the API-based ad serving application on the Gojek iOS/Android platform, aligning it with bounded context principles.</li>
-                            <li>Developed search-based ads for the Gojek food delivery application.</li>
-                            <li>Expanded advertising capabilities to include two additional inventories, also developed an Elixir Kafka consumer to handle millions of telemetry events.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job-entry">
-                        <p><span class="company-name">Scripbox</span> | <span class="job-title">Lead Software Engineer</span></p>
-                        <p class="job-date">December 2015 - December 2020 | Bengaluru, Karnataka, India</p>
-                        <ul>
-                            <li>Simplified user registration flow: Implemented streamlined APIs using Ruby on Rails, resulting in increased engagement.</li>
-                            <li>Enhanced portfolio management: Developed API to calculate real-time portfolio values, enabling informed investment decisions.</li>
-                            <li>Improved customer communication: Added push notification service for contact center, ensuring effective communication.</li>
-                            <li>Modernized application architecture: Dockerized all applications and deployed to AWS Elastic Beanstalk, improving scalability and resource utilization.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job-entry">
-                        <p><span class="company-name">Apple (Via TCS)</span> | <span class="job-title">DevOps Engineer</span></p>
-                        <p class="job-date">November 2013 - December 2015 | Bengaluru, Karnataka, India</p>
-                        <ul>
-                            <li>Migrated the multi-geography application from a single-node to a highly scalable and secured infrastructure, concurrently upgrading to Rails 4.x.</li>
-                        </ul>
-                    </div>
-
-                    <div class="job-entry">
-                        <p><span class="company-name">Tata Consultancy Services</span> | <span class="job-title">Full Stack Engineer - Innovation Labs</span></p>
-                        <p class="job-date">November 2012 - November 2013</p>
-                        <ul>
-                            <li>Developed and scaled an enterprise social collaboration platform to 300K+ users. Built wikis, messaging, and modernized notifications with AngularJS.</li>
-                            <li>Designed robust RESTful APIs to ensure seamless integration and extensibility.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="section-divider">---</div>
-
-                <p><strong>Education:</strong></p>
-                <div class="education-section">
-                    <p><span class="company-name">Rajalakshmi Institute of Technology</span></p>
-                    <p><span class="job-title">Bachelor of Technology in Information Technology</span></p>
-                    <p class="job-date">2008 - 2012</p>
-                </div>
-
-                <div class="section-divider">---</div>
-
-                <p><strong>Projects:</strong></p>
-                <div class="projects-section">
-                    <div class="project-entry">
-                        <p><span class="company-name"><a href="https://github.com/scripbox/flume" target="_blank">Flume</a></span> | <span class="job-title">Elixir Job Processing System</span></p>
-                        <p class="job-date">2019</p>
-                        <p>Built a robust job processing system in Elixir with rate limiting, back pressure, and batching capabilities. Used GenStage and Redis for scalable background job processing at Scripbox.</p>
-                    </div>
-
-                    <div class="project-entry">
-                        <p><span class="company-name"><a href="https://github.com/vasuadari/ecto_query_plus" target="_blank">EctoQueryPlus</a></span> | <span class="job-title">Elixir Query Builder</span></p>
-                        <p class="job-date">2020</p>
-                        <p>Functional query composition library for Ecto that simplifies conditional database queries with chainable methods and declarative syntax.</p>
-                    </div>
-
-                    <div class="project-entry">
-                        <p><span class="company-name"><a href="https://github.com/vasuadari/learn_cors" target="_blank">Learn CORS</a></span> | <span class="job-title">CORS Learning Guide</span></p>
-                        <p class="job-date">2020</p>
-                        <p>Comprehensive guide to understanding Cross-Origin Resource Sharing (CORS) with practical examples and implementation patterns for web security.</p>
-                    </div>
-
-                    <div class="project-entry">
-                        <p><span class="company-name"><a href="https://github.com/vasuadari/hello-world-terraform" target="_blank">Hello World Terraform</a></span> | <span class="job-title">Infrastructure as Code</span></p>
-                        <p class="job-date">2020</p>
-                        <p>Secure AWS infrastructure deployment using Terraform with VPC, load balancer, and EC2 instances following infrastructure as code best practices.</p>
-                    </div>
-
-                    <div class="project-entry">
-                        <p><span class="company-name"><a href="https://github.com/scripbox/circuit_breaker-ruby" target="_blank">Circuit Breaker Ruby</a></span> | <span class="job-title">Ruby Resilience Library</span></p>
-                        <p class="job-date">2016</p>
-                        <p>Ruby implementation of the circuit breaker pattern for building resilient distributed systems with configurable failure thresholds and retry mechanisms.</p>
-                    </div>
-
-                    <div class="project-entry">
-                        <p><span class="company-name"><a href="https://github.com/vasuadari/docker" target="_blank">Docker Learning Guide</a></span> | <span class="job-title">Containerization Tutorial</span></p>
-                        <p class="job-date">2016</p>
-                        <p>Comprehensive Docker learning resource covering containerization fundamentals, Rails application deployment, and production-ready container orchestration.</p>
-                    </div>
-                </div>
+        <section class="contact-info">
+            <h2>Contact</h2>
+            <div class="contact-links">
+                <a href="mailto:vasuadari@icloud.com">vasuadari@icloud.com</a>
+                <a href="tel:+919940364805">+919940364805</a>
+                <span>Bangalore, India</span>
+                <a href="https://linkedin.com/in/vasuakeel" target="_blank">LinkedIn</a>
+                <a href="https://github.com/vasuadari" target="_blank">GitHub</a>
             </div>
+        </section>
+
+        <section class="skills-section">
+            <h2>Skills</h2>
+            <p><span class="skill-category">Engineering:</span> Elixir, Ruby, JavaScript, Elasticsearch, MySQL, Postgres, Kafka, Redis</p>
+            <p><span class="skill-category">DevOps:</span> Docker, Kubernetes, Helm, Terraform, Ansible, GitLab, CI/CD, Git, AWS, GCP, Grafana, Graylog, NewRelic</p>
+        </section>
+
+        <section class="experience-section">
+            <h2>Experience</h2>
+            
+            <div class="job-entry">
+                <h3><span class="company-name">Scripbox</span> | <span class="job-title">Principal Engineer</span></h3>
+                <p class="job-date">March 2022 - Present | Bengaluru, Karnataka, India</p>
+                <ul>
+                    <li>Led the architectural design and implementation of a highly scalable Elixir application, replacing legacy systems during company mergers.</li>
+                    <li>Developed a master data application in Elixir with DAG-based workflow, including advanced search API features.</li>
+                    <li>Implemented OpenAPI Specification 3.0 standards, improving API documentation and maintainability across Elixir and Ruby applications.</li>
+                    <li>Established Architecture Decision Records (ADRs) as standard practice, fostering better decision-making and collaboration.</li>
+                </ul>
+            </div>
+
+            <div class="job-entry">
+                <h3><span class="company-name">Gojek Tech</span> | <span class="job-title">Lead Software Engineer</span></h3>
+                <p class="job-date">December 2020 - February 2022 | Bengaluru, Karnataka, India</p>
+                <ul>
+                    <li>Revamped the code structure of the API-based ad serving application on the Gojek iOS/Android platform, aligning it with bounded context principles.</li>
+                    <li>Developed search-based ads for the Gojek food delivery application.</li>
+                    <li>Expanded advertising capabilities to include two additional inventories, also developed an Elixir Kafka consumer to handle millions of telemetry events.</li>
+                </ul>
+            </div>
+
+            <div class="job-entry">
+                <h3><span class="company-name">Scripbox</span> | <span class="job-title">Lead Software Engineer</span></h3>
+                <p class="job-date">December 2015 - December 2020 | Bengaluru, Karnataka, India</p>
+                <ul>
+                    <li>Simplified user registration flow: Implemented streamlined APIs using Ruby on Rails, resulting in increased engagement.</li>
+                    <li>Enhanced portfolio management: Developed API to calculate real-time portfolio values, enabling informed investment decisions.</li>
+                    <li>Improved customer communication: Added push notification service for contact center, ensuring effective communication.</li>
+                    <li>Modernized application architecture: Dockerized all applications and deployed to AWS Elastic Beanstalk, improving scalability and resource utilization.</li>
+                </ul>
+            </div>
+
+            <div class="job-entry">
+                <h3><span class="company-name">Apple (Via TCS)</span> | <span class="job-title">DevOps Engineer</span></h3>
+                <p class="job-date">November 2013 - December 2015 | Bengaluru, Karnataka, India</p>
+                <ul>
+                    <li>Migrated the multi-geography application from a single-node to a highly scalable and secured infrastructure, concurrently upgrading to Rails 4.x.</li>
+                </ul>
+            </div>
+
+            <div class="job-entry">
+                <h3><span class="company-name">Tata Consultancy Services</span> | <span class="job-title">Full Stack Engineer - Innovation Labs</span></h3>
+                <p class="job-date">November 2012 - November 2013</p>
+                <ul>
+                    <li>Developed and scaled an enterprise social collaboration platform to 300K+ users. Built wikis, messaging, and modernized notifications with AngularJS.</li>
+                    <li>Designed robust RESTful APIs to ensure seamless integration and extensibility.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="education-section">
+            <h2>Education</h2>
+            <div class="job-entry">
+                <h3><span class="company-name">Rajalakshmi Institute of Technology</span></h3>
+                <p class="job-title">Bachelor of Technology in Information Technology</p>
+                <p class="job-date">2008 - 2012</p>
+            </div>
+        </section>
+
+        <section class="projects-section">
+            <h2>Notable Projects</h2>
+            
+            <div class="project-entry">
+                <h3><span class="company-name"><a href="https://github.com/scripbox/flume" target="_blank">Flume</a></span> | <span class="job-title">Elixir Job Processing System</span></h3>
+                <p class="job-date">2019</p>
+                <p>Built a robust job processing system in Elixir with rate limiting, back pressure, and batching capabilities. Used GenStage and Redis for scalable background job processing at Scripbox.</p>
+            </div>
+
+            <div class="project-entry">
+                <h3><span class="company-name"><a href="https://github.com/vasuadari/ecto_query_plus" target="_blank">EctoQueryPlus</a></span> | <span class="job-title">Elixir Query Builder</span></h3>
+                <p class="job-date">2020</p>
+                <p>Functional query composition library for Ecto that simplifies conditional database queries with chainable methods and declarative syntax.</p>
+            </div>
+
+            <div class="project-entry">
+                <h3><span class="company-name"><a href="https://github.com/vasuadari/learn_cors" target="_blank">Learn CORS</a></span> | <span class="job-title">CORS Learning Guide</span></h3>
+                <p class="job-date">2020</p>
+                <p>Comprehensive guide to understanding Cross-Origin Resource Sharing (CORS) with practical examples and implementation patterns for web security.</p>
+            </div>
+
+            <div class="project-entry">
+                <h3><span class="company-name"><a href="https://github.com/vasuadari/hello-world-terraform" target="_blank">Hello World Terraform</a></span> | <span class="job-title">Infrastructure as Code</span></h3>
+                <p class="job-date">2020</p>
+                <p>Secure AWS infrastructure deployment using Terraform with VPC, load balancer, and EC2 instances following infrastructure as code best practices.</p>
+            </div>
+
+            <div class="project-entry">
+                <h3><span class="company-name"><a href="https://github.com/scripbox/circuit_breaker-ruby" target="_blank">Circuit Breaker Ruby</a></span> | <span class="job-title">Ruby Resilience Library</span></h3>
+                <p class="job-date">2016</p>
+                <p>Ruby implementation of the circuit breaker pattern for building resilient distributed systems with configurable failure thresholds and retry mechanisms.</p>
+            </div>
+
+            <div class="project-entry">
+                <h3><span class="company-name"><a href="https://github.com/vasuadari/docker" target="_blank">Docker Learning Guide</a></span> | <span class="job-title">Containerization Tutorial</span></h3>
+                <p class="job-date">2016</p>
+                <p>Comprehensive Docker learning resource covering containerization fundamentals, Rails application deployment, and production-ready container orchestration.</p>
+            </div>
+        </section>
+
+        <div class="nav-links">
+            <a href="index.html">← Back to Home</a>
         </div>
-        <div class="terminal-line">
-            <span class="terminal-prompt">vasu@adari:~/about-me$</span>
-            <span class="terminal-command"><a href="index.html" class="nav-command">cd ..</a></span>
-        </div>
-        <div class="terminal-line">
-            <span class="terminal-prompt">vasu@adari:~$</span>
-            <span class="terminal-cursor">_</span>
-        </div>
-    </div>
-    <script src="script.js"></script>
+    </main>
 </body>
 </html>
