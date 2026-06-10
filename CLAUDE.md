@@ -1,102 +1,69 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
 ## Project Overview
 
-This is a static personal website and blog hosted on GitHub Pages at vasuadari.in. The site features a unique **terminal aesthetic** that simulates working in a command-line environment. Built with vanilla HTML, CSS, and JavaScript without any build tools or frameworks.
+Static personal site and blog hosted on GitHub Pages at vasuadari.in. Built with
+plain HTML and CSS only — no frameworks, no build tools, no images for decoration.
+A small amount of JavaScript exists only for Giscus comments (`script.js`) and
+reading-time calculation (`blog.js`).
 
-## Terminal Theme Architecture
+## Theme: "Engineer's Notebook"
 
-The website is designed as a fullscreen terminal experience with three distinct interaction patterns:
+A light, readable long-form theme with a nod to the site's terminal heritage.
 
-### Page Types & Commands
-
-- **Home Page (`index.html`)**: Simulates `ls -la` command showing directory structure
-  - Displays directories (`about-me/`, `blogs/`) and files as Unix file listings
-  - Navigation through clicking on directory/file entries
-  - Current directory highlighted with Nord blue accent
-
-- **About Page (`about-me.html`)**: Simulates `cat about-me.txt` command
-  - Shows personal information as terminal text output
-  - Clean text-based resume format with terminal colors
-  - Experience, skills, and education sections with color-coded hierarchy
-
-- **Blog Posts**: Simulates `vim filename.md` command
-  - Vim editor interface with authentic status line
-  - Markdown-style content rendering (`# title`, etc.)
-  - Dracula color scheme for syntax highlighting within vim content
-
-### Navigation System
-
-**Terminal Directory Navigation** (not web-style menus):
-- Home page shows filesystem structure via `ls -la` output
-- Pages use `cd ..` command links to navigate back to root
-- Directory permissions (`drwxr-xr-x`) and file attributes displayed
-- No traditional nav bars - all navigation integrated into terminal simulation
-
-### Visual Design
-
-**Color Scheme**:
-- **Background**: `#1e1e1e` (terminal black - permanent, no theme switching)
-- **Text**: `#f8f8f2` (terminal white)
-- **Accent**: `#88c0d0` (Nord blue for prompts, links, highlights)
-- **Syntax Colors**: Dracula-inspired palette for blog content
-
-**Typography**: Monospace fonts only (`Monaco`, `Consolas`, `Courier New`)
-
-**Terminal Elements**:
-- Prompts: `vasu@adari:~$`, `vasu@adari:~/blogs$`, etc.
-- Blinking cursor animation
-- File permissions, ownership, timestamps
-- Vim status lines with filename and reading time
+- **Background artwork is pure CSS** — no image files. Three layers:
+  `body` carries soft Nord-toned "aurora" radial glows; `body::before` is a
+  fixed full-viewport layer composing a distributed-system topology (nodes,
+  halos, diagonal links via corner-keyword gradients, orbit rings — one node
+  is a play button, drawn with a conic-gradient wedge in a ring) top-right
+  , PCB circuit traces with solder pads bottom-left, a vertical film strip
+  (perforations and frame lines via repeating gradients) on the left edge, and
+  a mid-solve Rubik's cube face (repeating-gradient grid + colored cells)
+  bottom-right — the play button, film strip, and Rubik's face signal a love of
+  movies and problem solving. Each piece is drawn as a
+  positioned `no-repeat` gradient; `body::after` renders a faint vertical hex
+  data-stream (ELF magic bytes) down the right edge. The artwork fades at
+  ≤1180px, the hex stream hides at ≤900px, and `::before` hides at ≤600px so
+  text always wins on small screens.
+- **Palette** (Nord-derived, defined as CSS variables in `:root` of `style.css`):
+  ink `#2e3440`, paper `#f5f7fa`, frost blue `#5e81ac` (links/accents),
+  frost light `#88c0d0` (decorative), teal `#8fbcbb` (glows only).
+- **Typography**: body in Charter/Georgia serif (`--font-serif`); all "machine"
+  text — dates, nav, section labels, prompts, code — in `--font-mono`.
+- **Signature elements**: the hero terminal prompt (`vasu@adari:~$ cat intro.txt`
+  with blinking cursor), `~/` prefix on the logo, `## ` markdown-style prefixes
+  on section headings, and `cd ..` on back-links. Keep these consistent.
+- Code blocks (`pre`) render as dark Nord terminals on the light page.
 
 ## File Structure
 
-- **index.html**: Terminal with `ls -la` showing directory structure
-- **about-me.html**: Terminal with `cat about-me.txt` output
-- **blog posts**: Terminal with `vim filename.md` editor simulation
-- **style.css**: Single terminal theme (no light/dark switching)
-- **script.js**: Minimal - no theme detection (removed)
-- **blog.js**: Reading time calculation for vim status line
-- **docs/**: PDF resume
-- **color-preview.html**: Development file (not part of main site)
+- `index.html` — homepage: hero + list of post cards (newest first)
+- `about-me.html` — resume-style about page
+- `<slug>.html` — one file per blog post, flat in the repo root
+- `_post-template.html` — copy this to create a new post (underscore keeps it
+  out of search engines' way; do not link to it)
+- `style.css` — single shared stylesheet; all pages inherit it
+- `script.js` — Giscus comments (loads only on article pages)
+- `sitemap.xml` — update when adding a post
 
-## Development Guidelines
+## Adding a New Blog Post
 
-### Terminal Authenticity
-- **Always maintain terminal illusion** - avoid web-like elements
-- **Use appropriate Unix commands** for each page context
-- **Keep monospace typography** throughout
-- **No theme switching** - terminals are always black
+1. Copy `_post-template.html` to `your-post-slug.html`.
+2. Replace `POST_TITLE`, `POST_DESCRIPTION`, `POST_SLUG`, `POST_DATE`,
+   `POST_TAGS` in the head, and fill in the article body.
+3. Add a `.blog-card` entry at the top of the `.blog-posts` grid in
+   `index.html` (title link, mono date, 1–2 sentence excerpt).
+4. Add the URL to `sitemap.xml`.
 
-### Content Standards
-- **No trailing whitespace** - files must pass `git` whitespace checks
-- **Proper indentation** with spaces (not tabs)
-- **Clean terminal formatting** with authentic command structures
+Supported article elements (already styled in `.article-body`): h2–h4, p, a,
+strong, em, ul/ol, blockquote, hr, img, figure/figcaption, table, code, pre,
+kbd. Optional `.post-tags` pill list works on cards and under article headers.
 
-### Adding New Blog Posts
+## Constraints
 
-1. Create HTML file with vim editor structure:
-   ```html
-   <div class="terminal-session">
-       <div class="terminal-line">
-           <span class="terminal-prompt">vasu@adari:~/blogs$</span>
-           <span class="terminal-command">vim new-post.md</span>
-       </div>
-       <div class="terminal-output blog-article">
-           <!-- Vim interface with status line and content -->
-       </div>
-   </div>
-   ```
-
-2. Add file entry to index.html directory listing
-3. Use vim-style content with Dracula syntax highlighting
-4. Include reading time calculation in vim status line
-
-## Technical Notes
-
-- **Deployment**: Auto-deploy via GitHub Pages to vasuadari.in
-- **No build process**: Direct HTML/CSS/JS files
-- **Browser testing**: Open files directly
-- **Version control**: Clean commits without whitespace errors
+- Plain HTML + CSS only. No frameworks, no CDN CSS, no decorative images.
+- Accessibility floor: visible `:focus-visible` outlines and
+  `prefers-reduced-motion` support are in `style.css` — preserve them.
+- Mobile: `background-attachment` falls back to `scroll` under 768px.

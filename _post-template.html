@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 1. Replace POST_TITLE, POST_DESCRIPTION, POST_SLUG, POST_DATE (ISO), POST_TAGS -->
+    <meta name="description" content="POST_DESCRIPTION">
+    <meta name="keywords" content="POST_TAGS">
+    <meta name="author" content="Vasu Adari">
+    <meta name="robots" content="index, follow">
+    <meta name="article:published_time" content="POST_DATE T12:00:00+00:00">
+    <meta name="article:author" content="Vasu Adari">
+    <meta name="article:tag" content="POST_TAGS">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://vasuadari.in/POST_SLUG.html">
+    <meta property="og:title" content="POST_TITLE">
+    <meta property="og:description" content="POST_DESCRIPTION">
+    <meta property="og:site_name" content="Vasu Adari">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vasuadari.in/POST_SLUG.html">
+    <meta property="twitter:title" content="POST_TITLE">
+    <meta property="twitter:description" content="POST_DESCRIPTION">
+
+    <link rel="canonical" href="https://vasuadari.in/POST_SLUG.html">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>POST_TITLE - Vasu Adari</title>
+    <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">vasuadari</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="about-me.html">About</a></li>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="docs/VasuAdariResume.pdf" target="_blank">Resume</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <header class="article-header">
+                <h1>POST_TITLE</h1>
+                <div class="article-meta">
+                    <span>Month DD, YYYY</span> • <span>X min read</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <p>Opening paragraph…</p>
+
+                <h2>Section heading</h2>
+                <p>Body text with <code>inline code</code>, <strong>bold</strong>, and <a href="#">links</a>.</p>
+
+                <pre><code># code blocks render as a Nord terminal
+def hello do
+  IO.puts("world")
+end</code></pre>
+
+                <blockquote>
+                    <p>Blockquotes, tables, images, figures, kbd, and hr are all styled too.</p>
+                </blockquote>
+            </div>
+        </article>
+
+        <div class="nav-links">
+            <a href="index.html">back to home</a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
