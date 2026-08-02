@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Decode Kubernetes by understanding Docker first. Learn about Pods, Services, Ingress, Controllers, and when you actually need Kubernetes in production.">
+    <meta name="keywords" content="Kubernetes, Docker, DevOps, Containers, Ingress, Controller, Pod, Service, etcd, Helm">
+    <meta name="author" content="Vasu Adari">
+    <meta name="robots" content="index, follow">
+    <meta name="article:published_time" content="2026-08-02T12:00:00+00:00">
+    <meta name="article:author" content="Vasu Adari">
+    <meta name="article:tag" content="Kubernetes, Docker, DevOps, Containers, Infrastructure">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://vasuadari.in/decode-kubernetes.html">
+    <meta property="og:title" content="Decode Kubernetes">
+    <meta property="og:description" content="Decode Kubernetes by understanding Docker first. Learn about Pods, Services, Ingress, Controllers, and when you actually need Kubernetes in production.">
+    <meta property="og:site_name" content="Vasu Adari">
+    <meta property="article:author" content="Vasu Adari">
+    <meta property="article:published_time" content="2026-08-02T12:00:00+00:00">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vasuadari.in/decode-kubernetes.html">
+    <meta property="twitter:title" content="Decode Kubernetes">
+    <meta property="twitter:description" content="Decode Kubernetes by understanding Docker first. Learn about Pods, Services, Ingress, Controllers, and when you actually need Kubernetes in production.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vasuadari.in/decode-kubernetes.html">
+
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title>Decode Kubernetes - Vasu Adari</title>
+    <link rel="stylesheet" href="style.css?v=4">
+
+    <style>
+        .diagram {
+            background: #1e1e2e;
+            border: 1px solid #313244;
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #cdd6f4;
+            overflow-x: auto;
+        }
+        .diagram .label {
+            color: #89b4fa;
+            font-weight: bold;
+        }
+        .diagram .arrow {
+            color: #a6e3a1;
+        }
+        .diagram .note {
+            color: #6c7086;
+            font-style: italic;
+        }
+        .tip-box {
+            border-left: 3px solid #89b4fa;
+            background: #1e1e2e;
+            padding: 0.8rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+        }
+        .tip-box strong {
+            color: #89b4fa;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">vasuadari</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="about-me.html">About</a></li>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="docs/VasuAdariResume.pdf" target="_blank">Resume</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <header class="article-header">
+                <h1>Decode Kubernetes</h1>
+                <div class="article-meta">
+                    <span>August 2, 2026</span> • <span>7 min read</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <p>In order to understand Kubernetes, you need to <a href="containerizing-rails-with-docker-a-practical-guide.html">learn how Docker works</a>. Docker is a base layer which helps you manage the life cycle of a container. But if you want to run multiple containers, it would become a nightmare to manage a docker-compose file.</p>
+
+                <p>Let's take an example of a docker-compose.yml file for a simple Rails app behind nginx:</p>
+
+                <pre><code>version: '3.4'
+services:
+  app:
+    build: .
+    command: bundle exec puma -C /app/config/puma.rb
+    working_dir: /app/
+    environment:
+      - RACK_ENV
+      - VIRTUAL_HOST
+    expose:
+      - 3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/healthcheck"]
+      interval: 45s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - nginxdata:/etc/nginx
+    ports:
+      - 80:80
+
+  nginx_conf_generator:
+    image: jwilder/docker-gen
+    command: -notify-sighup nginx -watch /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./docker/templates/:/etc/docker-gen/templates
+      - nginxdata:/etc/nginx
+
+volumes:
+  nginxdata:</code></pre>
+
+                <p>A simple application behind a web server. Let's dive into the details of what docker-compose gives us:</p>
+
+                <p>1. We need a prebuilt image or local Dockerfile to start a container</p>
+                <p>2. Docker needs a command to start the container</p>
+                <p>3. We need a way to reach the containers, so we use <code>expose</code> & <code>ports</code> to serve the traffic</p>
+                <p>4. To retain the filesystem with a container, we use docker volumes or mount a local path</p>
+                <p>5. We need a way to configure services so containers start in a desired state</p>
+                <p>6. Once started, we ensure they're healthy with health checks</p>
+
+                <p>At production scale, you'll also need:</p>
+                <p>1. Deployment rollbacks</p>
+                <p>2. Flexibility to add more applications / components</p>
+                <p>3. Auto scaler</p>
+                <p>4. Auto rotation of servers in case of upgrades</p>
+                <p>5. Access controls</p>
+
+                <p>Docker is very good for local development purposes. But to deploy an application in production, we need to consider these factors above.</p>
+
+                <h3>When do you need Kubernetes?</h3>
+
+                <p>For a small organization with fewer than 5 services, you may not need Kubernetes. Simple bare metal servers using Terraform should work most of the time. As you start adding more and more services, your DevOps team will become a bottleneck to manage those servers.</p>
+
+                <p>Managing a server means setup, security, upgrades, and maintenance. Now if you have 20+ servers and more than 5 components, DevOps needs to pay attention to each component. Cycle time of any infrastructure change increases linearly. You'd end up heavily relying on DevOps.</p>
+
+                <p>Luckily, Kubernetes solves for all these problems. It's like a Swiss army knife for a small DevOps team — helps engineering teams maintain their own applications with little infrastructure knowledge. DevOps would only be required to manage overall infrastructure or to scale.</p>
+
+                <div class="tip-box">
+                    <strong>Tip:</strong> Before moving to Kubernetes, make sure you have centralized configurations and a solid CI/CD pipeline in place.
+                </div>
+
+                <h3>What is Kubernetes?</h3>
+
+                <p>It's a software which helps you orchestrate large scale infrastructure using containerisation technology.</p>
+
+                <h3>Pod & Service</h3>
+
+                <p>The basic unit of Kubernetes is a <strong>pod</strong>, equivalent to a container in Docker terms. A pod can be part of a <strong>service</strong>. A service exposes the pod via DNS and port — meaning you can reach your app pod by making a request to <code>http://service.foo.bar.svc.local:port</code> within the Kubernetes network.</p>
+
+                <p>The only problem with a service is that you cannot expose it directly to external traffic, as it doesn't have the smarts to drain requests cleanly. We still need a load balancer like nginx here — which can itself run inside a pod.</p>
+
+                <h3>Ingress</h3>
+
+                <p>Now the real question: how do we link the app pod and the nginx pod? Requests should flow between the load balancer and pods via services. But the load balancer itself cannot discover a service since it runs inside a pod — and pods discover each other. Your load balancer should also be able to serve multiple apps.</p>
+
+                <p>We need something that can connect the load balancer and the pods. Hence we have the <strong>ingress resource</strong> — an object with a set of routing rules. But the ingress resource itself cannot route requests. The missing piece is: how does the load balancer learn about those routing rules?</p>
+
+                <div class="diagram">
+<span class="label">External Traffic</span>
+        <span class="arrow">↓</span>
+<span class="label">Load Balancer</span> <span class="note">(nginx pod)</span>
+        <span class="arrow">↓</span>
+<span class="label">Ingress Resource</span> <span class="note">(routing rules)</span>
+        <span class="arrow">↓</span>
+<span class="label">Ingress Controller</span> <span class="note">(watches & syncs rules to nginx)</span>
+        <span class="arrow">↓</span>
+<span class="label">Service</span> <span class="note">(DNS discovery)</span>
+        <span class="arrow">↓</span>
+<span class="label">App Pod(s)</span>
+                </div>
+
+                <h3>What is a Controller?</h3>
+
+                <p>A controller's only purpose is to <strong>watch for a change of state and reconcile it inside a loop</strong> (let that sink in). So far we have: an ingress object, a controller, and a load balancer. But we also need a store to save the current state — hence <strong>etcd</strong>, a simple key-value store. Every Kubernetes resource is stored in etcd.</p>
+
+                <p>Let's connect the dots: the controller sees a new ingress object that's missing in the store. Before reconciling the state, it syncs the routing rules to nginx. This means you can write your own controller for a specific purpose — you only need to define the action.</p>
+
+                <div class="diagram">
+<span class="label">etcd</span> <span class="note">(key-value state store)</span>
+   <span class="arrow">↑         ↓</span>
+<span class="label">Controller</span> <span class="note">(watches diff → reconciles)</span>
+          <span class="arrow">↓</span>
+<span class="label">Kubernetes Resource</span> <span class="note">(Ingress / Deployment / ReplicaSet / ...)</span>
+                </div>
+
+                <p>Example controllers:</p>
+                <p>• <strong>Nginx Ingress Controller</strong> — syncs ingress rules to nginx</p>
+                <p>• <strong>Deployment Controller</strong> — rolls pods with updated images</p>
+                <p>• <strong>ReplicaSet Controller</strong> — scales pods up/down</p>
+                <p>• <strong>DaemonSet Controller</strong> — ensures a pod runs on every node</p>
+                <p>• <strong>CronJob Controller</strong> — manages scheduled jobs</p>
+
+                <p>When you deploy an application, the deployment controller ensures pods are rotated in a rolling manner — bringing up a new pod with the updated image before taking down the old one. If your application needs to autoscale, the ReplicaSet controller handles that. If you want a pod running on every node, the DaemonSet controller helps.</p>
+
+                <h3>Helm</h3>
+
+                <p>In general, we no longer write raw Kubernetes specs — they require a lot of boilerplate. <strong>Helm</strong> helps you manage templates on top of Kubernetes specs, which you simply configure. It also handles versioning, rollbacks, and dependency management.</p>
+
+                <h3>Summary</h3>
+
+                <p>By applying first principles thinking, we traced how Kubernetes overcomes the shortfalls of Docker for production workloads — from a single container, to docker-compose, to a full orchestration platform with controllers, services, ingress, and etcd holding it all together.</p>
+
+                <p>I hope this gives you a solid mental model of Kubernetes. To fully internalize it, set up <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreferrer">minikube</a> locally and get your hands on the actual resources. Thanks for reading.</p>
+            </div>
+        </article>
+
+        <div class="nav-links">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
