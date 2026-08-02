@@ -35,38 +35,39 @@
 
     <style>
         .diagram {
-            background: #1e1e2e;
-            border: 1px solid #313244;
+            background: rgba(136, 192, 208, 0.16);
+            border: 1px solid rgba(136, 192, 208, 0.3);
             border-radius: 8px;
             padding: 1.5rem 2rem;
             margin: 1.5rem 0;
             font-family: monospace;
             font-size: 0.9rem;
             line-height: 1.8;
-            color: #cdd6f4;
+            color: var(--ink);
             overflow-x: auto;
         }
         .diagram .label {
-            color: #89b4fa;
+            color: var(--frost-deep);
             font-weight: bold;
         }
         .diagram .arrow {
-            color: #a6e3a1;
+            color: var(--ink-soft);
         }
         .diagram .note {
-            color: #6c7086;
+            color: var(--ink-faint);
             font-style: italic;
         }
         .tip-box {
-            border-left: 3px solid #89b4fa;
-            background: #1e1e2e;
+            border-left: 3px solid var(--frost-deep);
+            background: rgba(136, 192, 208, 0.16);
             padding: 0.8rem 1.2rem;
             margin: 1.5rem 0;
             border-radius: 0 6px 6px 0;
             font-size: 0.95rem;
+            color: var(--ink);
         }
         .tip-box strong {
-            color: #89b4fa;
+            color: var(--frost-deep);
         }
     </style>
 </head>
